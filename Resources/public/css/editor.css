@@ -1,0 +1,63 @@
+textarea.window {
+    display: block;
+    width: 100%;
+    height: 800px;
+    overflow: auto;
+    white-space: pre-wrap;
+}
+
+div.container {
+    margin: 0 auto;
+    width: 1300px;
+}
+
+div.center {
+    width: 70px;
+    margin: 0;
+    padding: 0;
+    padding-left: 22px;
+}
+
+ul.lines {
+    width: 27px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 806px;
+}
+
+ul.lines li {
+    width: 25px;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    line-height: 17px;
+}
+
+div.left, div.right {
+    padding: 0;
+    margin: 0;
+}
+
+ul.lines li:nth-child(2n+1){
+    background: #ffffe2;
+}
+
+ul.lines li:nth-child(2n){
+    background: #ebffe2;
+}
+
+div.info {
+    margin: 0 auto;
+    width: 1300px;
+    height: 20px;
+}
+
+div.buttons {
+    padding-top: 10px;
+    width: 80px;
+    margin-left: 295px;
+}
