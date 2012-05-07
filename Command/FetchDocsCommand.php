@@ -29,18 +29,19 @@ class FetchDocsCommand extends ContainerAwareCommand
             throw new \Exception('Function "shell_exec" is disabled, cannot work without it.');
         }
 
-        $docsDir = $this->getContainer()->getParameter('dark_translation.build.path');
+        $buildDir = $this->getContainer()->getParameter('dark_translation.build.path');
 
-        if (!file_exists($docsDir)) {
-            mkdir($docsDir, 0755, true);
+        if (!file_exists($buildDir)) {
+            mkdir($buildDir, 0755, true);
         }
 
         $repositories = $this->getContainer()->getParameter('dark_translation.repositories');
+
         $langs = $input->getArgument('language');
 
         foreach ($langs as $lang) {
             if (isset($repositories[$lang])) {
-                shell_exec(sprintf('cd %s && git clone %s', $docsDir, $repositories[$lang]));
+                shell_exec(sprintf('cd %s && git clone %s', $buildDir, $repositories[$lang]));
             } else {
                 throw new \Exception('Not found repository for ' . $lang . ' language.');
             }

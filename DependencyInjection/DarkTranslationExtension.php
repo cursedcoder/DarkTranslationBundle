@@ -24,6 +24,8 @@ class DarkTranslationExtension extends Extension
         $container->setParameter('dark_translation.source.from', $config['source']['from']);
         $container->setParameter('dark_translation.source.to', $config['source']['to']);
 
+        $container->setParameter('dark_translation.repositories', $config['repositories']);
+
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
     }
