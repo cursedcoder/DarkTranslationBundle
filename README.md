@@ -52,7 +52,11 @@ dark_translation:
         path: %kernel.root_dir%/../docs/build
 ```
 
-Then run command ``php app/console dark-translation:fetch-docs en ru``, replace ``ru`` with yours lang-tag.
+Then run command:
+
+    php app/console dark-translation:fetch-docs en ru
+
+replace ``ru`` with your lang-tag.
 
 ## Build Docs Command
 If you want to see how docs is view, you can translate in into html with sphinx.
