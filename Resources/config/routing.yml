@@ -1,0 +1,11 @@
+translation_list:
+    resource: "@DarkTranslationBundle/Controller/ListController.php"
+    type:     annotation
+
+translation_editor:
+    resource: "@DarkTranslationBundle/Controller/EditorController.php"
+    type:     annotation
+
+translation_docs:
+    resource: "@DarkTranslationBundle/Controller/DocsController.php"
+    type:     annotation

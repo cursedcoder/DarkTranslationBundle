@@ -1,0 +1,32 @@
+body {
+    background: url('http://symfony-docs.pl/img/bg_page.jpg') repeat-x;
+}
+
+div.container {
+    width: 970px;
+    margin: 0 auto;
+}
+
+div.header {
+    margin-bottom: 30px;
+    height: 80px;
+}
+
+div.menu ul li {
+    float: left;
+    margin-right: 20px;
+    font-size: 16px;
+}
+
+div.menu {
+    margin-top: 30px;
+    width: 100%;
+    background: transparent;
+    margin-right: 0;
+}
+
+div.logo {
+    width: 240px;
+    height: 60px;
+    background: url('http://symfony.com/images/common/logo/logo_symfony_header.png');
+}

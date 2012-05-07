@@ -1,0 +1,57 @@
+<div class="main_content">
+    <div class="box_columns clear_fix">
+        <div class="column_01">
+            <div class="submenu">
+                <ul class="list_submenu">
+                    <li{% if 'index' == pagename %} class="selected"{% endif %}><a href="{{ pathto('index') }}">Index</a></li>
+                    <li{% if 'book' in pagename and 'cookbook' not in pagename %} class="selected"{% endif %}><a href="{{ pathto('book/index') }}">The Book</a></li>
+                    <li{% if 'cookbook' in pagename %} class="selected"{% endif %}><a href="{{ pathto('cookbook/index') }}">The Cookbook</a></li>
+                    <li{% if 'components' in pagename %} class="selected"{% endif %}><a href="{{ pathto('components/index') }}">The Components</a></li>
+                    <li{% if 'reference' in pagename %} class="selected"{% endif %}><a href="{{ pathto('reference/index') }}">Reference</a></li>
+                    <li{% if 'glossary' == pagename %} class="selected"{% endif %}><a href="{{ pathto('glossary') }}">Glossary</a></li>
+                    <li{% if 'genindex' == pagename %} class="selected"{% endif %}><a href="{{ pathto('genindex') }}">Index</a></li>
+                    <li{% if 'bundles' in pagename %} class="selected"{% endif %}><a href="{{ pathto('bundles/index') }}">Bundles</a></li>
+                    <li{% if 'contributing' in pagename %} class="selected"{% endif %}><a href="{{ pathto('contributing/index') }}">Contributing</a></li>
+                </ul>
+            </div>
+
+            {% if display_toc %}
+            <div class="toc">
+                <h2 class="title_05">Table of Contents</h2>
+
+                <div class="toc-content">
+                    {{ toc }}
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+        <div class="column_02">
+            <div class="box_title">
+                <h1 class="title_01">{{ title }}</h1>
+            </div>
+
+
+            <div class="box_article doc_page">
+                {% block body %}{% endblock %}
+            </div>
+
+            {% if prev or next %}
+            <div class="navigation">
+                {% if prev %}
+                    <a href="{{ prev.link|e }}">&laquo;&nbsp;{{ prev.title }}</a>
+                {% endif %}
+                <span class="separator">|</span>
+                {% if next %}
+                    <a href="{{ next.link|e }}">{{ next.title }}&nbsp;&raquo;</a>
+                {% endif %}
+            </div>
+
+            <div class="box_hr">
+                <hr/>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>

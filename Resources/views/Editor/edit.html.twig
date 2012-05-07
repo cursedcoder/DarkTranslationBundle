@@ -1,0 +1,128 @@
+{% extends 'DarkTranslationBundle::layout.html.twig' %}
+{% set path = app.request.get('path') %}
+{% block body %}
+<div class="info">
+    <div class="span3" style="margin: 0;">
+        Lines <i class="lines">0</i> of <i class="linesOf">0</i>
+        <div class="progress progress-striped">
+            <div class="bar bar-lines" style="width: 0%"></div>
+        </div>
+    </div>
+    <div class="span3">
+        Words <i class="words">0</i> of <i class="wordsOf">0</i>
+        <div class="progress progress-striped progress-warning">
+            <div class="bar bar-words" style="width: 0%"></div>
+        </div>
+    </div>
+    <div class="span3">
+        Translated <i class="translated">0</i>%~
+        <div class="progress progress-striped progress-success">
+            <div class="bar bar-percents" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <div class="span3 buttons">
+        <a class="btn btn-primary" href="{{ path('show', { 'path': path }) }}">View html</a>
+        <a href="javascript:history.go(-1)" class="btn btn-warning">Back to list</a>
+        <a class="btn btn-success save">Save File</a>
+    </div>
+</div>
+
+<div class="container editor">
+    <form method="POST" action="{{ path('save', { 'path': path }) }}" class="data">
+        <div class="left span6">
+            <textarea wrap="off" name="data" class="window first">{{ editor.result }}</textarea>
+        </div>
+    </form>
+
+    <div class="span1 center">
+        <table>
+            <tr>
+                <td><ul class="left lines"></ul></td>
+                <td><ul class="right lines"></ul></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="right span6">
+        <textarea wrap="off" class="window second">{{ editor.source }}</textarea>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script src="{{ asset('/bundles/darktranslation/js/typing.js') }}"></script>
+<script type="text/javascript">
+    $(function() {
+
+        $('a.save').bind('click', function() {
+            $('form.data').submit();
+        });
+
+        $('textarea.first').scroll(function() {
+            percent = ($(this).scrollTop() / ($(this)[0].scrollHeight - $(this).height())).toFixed(2);
+            scrollSecond = Math.round(percent * ($('.second')[0].scrollHeight - $('.second').height()));
+
+            $('.second').scrollTop(scrollSecond);
+            $('ul.left').scrollTop($(this).scrollTop());
+        });
+
+        $('textarea.second').scroll(function() {
+            percent = ($(this).scrollTop() / ($(this)[0].scrollHeight - $(this).height())).toFixed(2);
+            scrollFirst = Math.round(percent * ($('.first')[0].scrollHeight - $('.first').height()));
+
+            $('.first').scrollTop(scrollFirst);
+            $('ul.right').scrollTop($(this).scrollTop());
+        });
+
+        calculate = function() {
+
+            $("ul.left").html('');
+            $("ul.right").html('');
+
+            firstCount = $("textarea.first").val().split("\n").length;
+            secondCount = $("textarea.second").val().split("\n").length;
+
+            for (i = 1; i <= firstCount; i++) {
+                $("ul.left").append("<li>" + i + "</li>");
+            }
+
+            for (i = 1; i <= secondCount; i++) {
+                $("ul.right").append("<li>" + i + "</li>");
+            }
+
+            firstLines = $("textarea.first").val().split("\n").length;
+            secondLines = $("textarea.second").val().split("\n").length;
+            percent = (firstLines / secondLines) * 100;
+
+            $('i.lines').text(firstLines);
+            $('i.linesOf').text(secondLines);
+            $('.bar-lines').css('width', percent + '%');
+
+            firstWords = $.trim($('textarea.first').val()).split(' ').length;
+            secondWords = $.trim($('textarea.second').val()).split(' ').length;
+            percent = (firstWords / secondWords) * 100;
+
+            $('i.words').text(firstWords);
+            $('i.wordsOf').text(secondWords);
+            $('.bar-words').css('width', percent + '%');
+
+            percent = Math.round(((firstLines + firstWords) / (secondLines + secondWords)) * 100);
+            $('i.translated').text(percent);
+            $('.bar-percents').css('width', percent + '%');
+        }
+
+        $('textarea').typing({
+            start: null,
+            stop: function (event, $elem) {
+                calculate();
+            },
+            delay: 600
+        });
+
+        calculate();
+    });
+</script>
+{% endblock %}

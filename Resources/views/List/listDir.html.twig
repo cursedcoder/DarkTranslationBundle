@@ -1,0 +1,76 @@
+{% extends 'DarkTranslationBundle::layout.html.twig' %}
+{% set path = app.request.get('path') %}
+{% block body %}
+
+<div class="container">
+
+    {% if app.session.hasFlash('notice') %}
+    <div class="alert alert-success">
+        <a class="close" data-dismiss="alert" href="#">×</a>
+        {% autoescape false %}
+            {{ app.session.flash('notice') }}
+        {% endautoescape %}
+    </div>
+    {% endif %}
+
+    <ul class="breadcrumb">
+        {% for crumb in breadcrumbs %}
+            {% for path, name in crumb %}
+                {% if not loop.parent.loop.last %}
+                    <li><a href="{{ path('list', { 'path': path }) }}">{{ name }}</a> <span class="divider">/</span></li>
+                {% else %}
+                    <li class="active"><a href="{{ path('list', { 'path': path }) }}">{{ name }}</a>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </ul>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <td width="60%">Name</td>
+                <td width="20%">Last Modified</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for element in dir.source %}
+        <tr>
+            <td>
+                {% if element.isDir() %}
+                    <i class="icon-folder-open"></i>
+                    {% if dir.result[element.getBasename()] is defined %}
+                        <a href="{{ path('list', { 'path': path ? path ~ '/' ~ element.getBasename() : element.getBasename() }) }}">{{ element.getBasename() }}</a>
+                    {% else %}
+                        {{ element.getBasename() }}
+                    {% endif %}
+                {% else %}
+                    <i class="icon-file"></i> {{ element.getBasename() }}
+                {% endif %}
+
+                {% if dir.result[element.getBasename()] is not defined %}
+                    <span class="label label-inverse">empty</span>
+                {% endif %}
+            </td>
+            <td>{{ element.getMTime()|date("F jS \\a\\t g:ia") }}</td>
+            <td>
+                {% if element.isFile() %}
+                    {% if dir.result[element.getBasename()] is not defined %}
+                        <i class="icon-wrench"></i> <a href="{{ path('edit', {'path': path ? path ~ '/' ~ element.getBasename() : element.getBasename() }) }}">create</a>
+                    {% else %}
+                        <i class="icon-edit"></i> <a href="{{ path('edit', {'path': path ? path ~ '/' ~ element.getBasename() : element.getBasename() }) }}">edit</a>
+                        &nbsp;
+                        <i class="icon-eye-open"></i> <a href="{{ path('show', { 'path': path ? path ~ '/' ~ element.getBasename() : element.getBasename() }) }}">view</a>
+                    {% endif %}
+                {% else %}
+                    {% if dir.result[element.getBasename()] is not defined %}
+                        <i class="icon-wrench"></i> <a href="{{ path('mkdir', {'path': path ? path ~ '/' ~ element.getBasename() : element.getBasename() }) }}">create</a>
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
