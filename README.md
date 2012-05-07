@@ -66,8 +66,6 @@ And then you are freely to generate html:
 
 ## Screenshots
 
-![File browser](http://puu.sh/tvu3.jpg)
-
-![Editor](http://puu.sh/tvuD.jpg)
-
-![Docs view](http://puu.sh/tvv8.jpg)
+[File browser](http://puu.sh/tvu3.jpg)
+[Editor](http://puu.sh/tvuD.jpg)
+[Docs view](http://puu.sh/tvv8.jpg)
