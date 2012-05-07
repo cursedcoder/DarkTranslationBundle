@@ -27,21 +27,25 @@ class BuildDocsCommand extends ContainerAwareCommand
             throw new \Exception('Function "shell_exec" is disabled, cannot work without it.');
         }
 
-        $path = $this->getContainer()->getParameter('dark_translation.build.path');
+        $sourcePath = $this->getContainer()->getParameter('dark_translation.source.to');
+        $buildPath = $this->getContainer()->getParameter('dark_translation.build.path');
 
-        if (!file_exists($path)) {
-            throw new \Exception('Folder ' . $path . ' is not exist.');
+        if (!file_exists($sourcePath)) {
+            throw new \Exception('Folder ' . $sourcePath . ' is not exist.');
+        }
+        if (!file_exists($buildPath)) {
+            mkdir($buildPath, 0755, true);
         }
 
         $pyConfig = __DIR__.'/../Resources/python/*';
 
-        shell_exec(sprintf('cp -R %s %s', $pyConfig, $path));
-        shell_exec(sprintf('rm -rf %s', $path . '/../build'));
-        shell_exec(sprintf('sphinx-build -b html %s %s', $path, $path . '/../build'));
+        shell_exec(sprintf('cp -R %s %s', $pyConfig, $sourcePath));
+        shell_exec(sprintf('rm -rf %s', $buildPath));
+        shell_exec(sprintf('sphinx-build -b html %s %s', $sourcePath, $buildPath));
 
-        shell_exec(sprintf('unlink %s/conf.py', $path));
-        shell_exec(sprintf('unlink %s/configurationblock.py', $path));
-        shell_exec(sprintf('unlink %s/configurationblock.pyc', $path));
+        shell_exec(sprintf('unlink %s/conf.py', $sourcePath));
+        shell_exec(sprintf('unlink %s/configurationblock.py', $sourcePath));
+        shell_exec(sprintf('unlink %s/configurationblock.pyc', $sourcePath));
 
         $output->writeln('<info>Building is finished.</info>');
     }
