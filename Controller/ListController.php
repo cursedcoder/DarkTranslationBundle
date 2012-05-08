@@ -26,7 +26,6 @@ class ListController extends Controller
     }
 
     /**
-     * @Route("/")
      * @Route("/mkdir.html", name="mkdir")
      * @Template()
      */
