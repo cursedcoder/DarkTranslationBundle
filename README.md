@@ -81,6 +81,6 @@ And then you are freely to generate html:
 
 ## Screenshots
 
-* [File browser](http://puu.sh/tvu3.jpg)
-* Editor: [fr](http://puu.sh/tLPj) [ru](http://puu.sh/tvuD.jpg)
-* Docs view: [fr](http://puu.sh/tLPW) [ru](http://puu.sh/tvv8.jpg)
+* File browser: [1](http://puu.sh/tNYC) [2](http://puu.sh/tNZI)
+* Editor: [fr](http://puu.sh/tO21) [ru](http://puu.sh/tO0n)
+* Docs view: [fr](http://puu.sh/tO1M) [ru](http://puu.sh/tO0U)
