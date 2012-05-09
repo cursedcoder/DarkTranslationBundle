@@ -62,7 +62,7 @@ class Explorer
         $path = $this->resultPath . '/' . $path;
 
         if (file_exists($path)) {
-            throw new \Exception('Folder ' . $path . ' is already exist.');
+            throw new \Exception('Directory ' . $path . ' is already exist.');
         }
 
         mkdir($path, 0755);
