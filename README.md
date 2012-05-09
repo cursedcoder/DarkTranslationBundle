@@ -36,6 +36,13 @@ public function registerBundles()
 )
 ```
 
+Add bundle to your ``routing.yml``:
+
+```jinja
+dark_translation_bundle:
+    resource: "@DarkTranslationBundle/Resources/config/routing.yml"
+```
+
 Set up url for your fork and local path for docs that you would to translate in ``config.yml``
 
 ```jinja

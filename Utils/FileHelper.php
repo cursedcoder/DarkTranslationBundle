@@ -12,7 +12,7 @@ class FileHelper
             return $check ? true : false;
         }
         if (false === $check) {
-            throw new FileException('File ' . $path . ' not exist. You probably need to generate sphinx documents first.');
+            throw new FileException('File ' . $path . ' is not exist. You probably need to generate sphinx documents first.');
         }
 
         return $check;
