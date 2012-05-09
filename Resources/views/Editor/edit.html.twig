@@ -88,19 +88,16 @@
             secondLines = $("textarea.second").val().split("\n").length;
             percent = (firstLines / secondLines) * 100;
 
-            $('i.lines').text(firstLines);
-            $('i.linesOf').text(secondLines);
-            $('.bar-lines').css('width', percent + '%');
-
             firstWords = $.trim($('textarea.first').val()).split(' ').length;
             secondWords = $.trim($('textarea.second').val()).split(' ').length;
             percent = (firstWords / secondWords) * 100;
 
-            $('i.words').text(firstWords);
-            $('i.wordsOf').text(secondWords);
-            $('.bar-words').css('width', percent + '%');
-
             percent = Math.round(((firstLines + firstWords) / (secondLines + secondWords)) * 100);
+
+            if (percent > 100) {
+                percent = 100;
+            }
+
             $('i.translated').text(percent);
             $('.bar-percents').css('width', percent + '%');
         }
