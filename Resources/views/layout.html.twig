@@ -5,33 +5,33 @@
     <title>Symfony Documentation Translation Tool</title>
 
     <link href="{{ asset('/bundles/darktranslation/css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('/bundles/darktranslation/css/editor.css') }}" rel="stylesheet">
     <link href="{{ asset('/bundles/darktranslation/css/bootstrap-responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('/bundles/darktranslation/css/editor.css') }}" rel="stylesheet">
+    <link href="{{ asset('/bundles/darktranslation/css/topbar.css') }}" rel="stylesheet">
 </head>
 
 <body>
 
 <div class="navbar topbar">
     <div class="navbar-inner">
-        <div class="container" style="width: 900px;">
+        <div class="container">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="{{ path('docs') }}">Documentation</a>
+            <a class="brand" href="{{ path('list') }}">Documentation</a>
             <div class="nav-collapse">
                 <ul class="nav">
                     <li class="active"><a href="{{ path('list') }}">Translation</a></li>
                     <li><a href="{{ path('docs') }}">Documentation</a></li>
-                    <li><a data-toggle="modal" href="#myModal">About</a></li>
                     <li><a href="http://symfony.com">Symfony.com</a></li>
                 </ul>
+                {% block add_menu %}{% endblock %}
             </div>
         </div>
     </div>
 </div>
-
 
 {% block body %}{% endblock %}
 
@@ -45,16 +45,6 @@
         $('#myModal').modal({'show': false});
     })
 </script>
-
-<div class="modal hide fade" id="myModal">
-    <div class="modal-header">
-        <button class="close" data-dismiss="modal">×</button>
-        <h3>Symfony Documentation Translation Tool</h3>
-    </div>
-    <div class="modal-body">
-        <p>all work done by <a href="http://github.com/cursedcoder">Dark</a> | <a href="http://github.com/cursedcoder/DarkTranslationBundle">GH Repo</a></p>
-    </div>
-</div>
 
 </body>
 </html>

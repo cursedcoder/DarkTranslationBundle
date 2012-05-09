@@ -1,52 +1,41 @@
 {% extends 'DarkTranslationBundle::layout.html.twig' %}
 {% set path = app.request.get('path') %}
-{% block body %}
-<div class="info">
-    <div class="span3" style="margin: 0;">
-        Lines <i class="lines">0</i> of <i class="linesOf">0</i>
-        <div class="progress progress-striped">
-            <div class="bar bar-lines" style="width: 0%"></div>
+{% block add_menu %}
+<div class="span3 process">
+    <div class="progress progress-inversed">
+        <div class="bar bar-percents" style="width: 0%">
+            <i class="info">~<i class="translated">0</i>% translated</i>
         </div>
-    </div>
-    <div class="span3">
-        Words <i class="words">0</i> of <i class="wordsOf">0</i>
-        <div class="progress progress-striped progress-warning">
-            <div class="bar bar-words" style="width: 0%"></div>
-        </div>
-    </div>
-    <div class="span3">
-        Translated <i class="translated">0</i>%~
-        <div class="progress progress-striped progress-success">
-            <div class="bar bar-percents" style="width: 0%"></div>
-        </div>
-    </div>
-
-    <div class="span3 buttons">
-        <a class="btn btn-primary" href="{{ path('show', { 'path': path }) }}">View html</a>
-        <a href="javascript:history.go(-1)" class="btn btn-warning">Back to list</a>
-        <a class="btn btn-success save">Save File</a>
     </div>
 </div>
+
+<ul class="nav pull-right">
+    <li><a href="{{ path('show', { 'path': path }) }}"><i class="icon-eye-open"></i> View html</a></li>
+    <li><a href="#" class="save"><i class="icon-ok"></i> Save File</a></li>
+    <li><a href="javascript:history.go(-1)"><i class="icon-backward"></i> Back to list</a></li>
+</ul>
+{% endblock %}
+{% block body %}
 
 <div class="container editor">
     <form method="POST" action="{{ path('save', { 'path': path }) }}" class="data">
         <div class="left span6">
             <textarea wrap="off" name="data" class="window first">{{ editor.result }}</textarea>
         </div>
+
+        <div class="span1 center">
+            <table>
+                <tr>
+                    <td><ul class="left lines"></ul></td>
+                    <td><ul class="right lines"></ul></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="right span6">
+            <textarea wrap="off" class="window second">{{ editor.source }}</textarea>
+        </div>
     </form>
-
-    <div class="span1 center">
-        <table>
-            <tr>
-                <td><ul class="left lines"></ul></td>
-                <td><ul class="right lines"></ul></td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="right span6">
-        <textarea wrap="off" class="window second">{{ editor.source }}</textarea>
-    </div>
 </div>
 
 
@@ -57,7 +46,7 @@
 <script type="text/javascript">
     $(function() {
 
-        $('div.topbar').css('width', '1300px');
+        $('div.topbar').css('width', '1306px');
 
         $('a.save').bind('click', function() {
             $('form.data').submit();

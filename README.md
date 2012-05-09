@@ -65,6 +65,10 @@ Then run command:
 
 replace ``ru`` with your lang-tag.
 
+And not forget about assets:
+
+    php app/console assets:install web/ --symlink
+
 ## Build Docs Command
 If you want to see how docs is view, you can translate in into html with sphinx.
 Be sure, that you have sphinx on your local machine. If not, run command:

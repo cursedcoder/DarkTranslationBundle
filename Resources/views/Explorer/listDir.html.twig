@@ -63,7 +63,7 @@
                     {% if dir.result[element.getBasename()] is not defined %}
                         <i class="icon-wrench"></i> <a href="{{ path('edit', {'path': path ? path ~ '/' ~ element.getBasename() : element.getBasename() }) }}">create</a>
                     {% else %}
-                        <i class="icon-edit"></i> <a href="{{ path('edit', {'path': path ? path ~ '/' ~ element.getBasename() : element.getBasename() }) }}">edit</a>
+                        <i class="icon-pencil"></i> <a href="{{ path('edit', {'path': path ? path ~ '/' ~ element.getBasename() : element.getBasename() }) }}">edit</a>
                         &nbsp;
                         <i class="icon-eye-open"></i> <a href="{{ path('show', { 'path': path ? path ~ '/' ~ element.getBasename() : element.getBasename() }) }}">view</a>
                     {% endif %}

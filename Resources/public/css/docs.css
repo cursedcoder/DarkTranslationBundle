@@ -1,5 +1,5 @@
 body {
-    background: url('http://symfony-docs.pl/img/bg_page.jpg') repeat-x;
+    background: url('../img/bg_page.jpg') repeat-x;
 }
 
 div.container {
@@ -7,26 +7,16 @@ div.container {
     margin: 0 auto;
 }
 
-div.header {
+div.navbar-inner {
+    margin-left: 4px;
+}
+
+div.container > div.topbar {
     margin-bottom: 30px;
-    height: 80px;
 }
 
-div.menu ul li {
-    float: left;
-    margin-right: 20px;
-    font-size: 16px;
-}
-
-div.menu {
-    margin-top: 30px;
-    width: 100%;
-    background: transparent;
-    margin-right: 0;
-}
-
-div.logo {
-    width: 240px;
-    height: 60px;
-    background: url('http://symfony.com/images/common/logo/logo_symfony_header.png');
+blockquote, .admonition, .toc-content, pre, code, div.highlight, div.highlight-php {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }

@@ -1,5 +1,9 @@
 body {
-    background: url('http://symfony-docs.pl/img/bg_page.jpg') repeat-x;
+    background: url('../img/bg_page.jpg') repeat-x;
+}
+
+a {
+    color: #007dcc;
 }
 
 textarea.window {
@@ -18,14 +22,14 @@ div.editor {
 }
 
 div.left, div.right {
-    width: 600px;
+    width: 598px;
 }
 
 div.center {
     width: 70px;
     margin: 0;
     padding: 0;
-    padding-left: 22px;
+    padding-left: 26px;
 }
 
 ul.lines {
@@ -53,12 +57,48 @@ div.left, div.right {
     margin: 0;
 }
 
+ul.left li:nth-child(1){
+    -webkit-border-radius: 4px 0 0 0;
+    -moz-border-radius: 4px 0 0 0;
+    border-radius: 4px 0 0 0;
+}
+
+ul.right li:nth-child(1){
+    -webkit-border-radius: 0 4px 0 0;
+    -moz-border-radius: 0 4px 0 0;
+    border-radius: 0 4px 0 0;
+}
+
+ul.left li:nth-last-child(1){
+    -webkit-border-radius: 0 0 0 4px;
+    -moz-border-left-radius: 0 0 0 4px;
+    border-radius: 0 0 0 4px;
+}
+
+ul.right li:nth-last-child(1){
+    -webkit-border-radius: 0 0 4px 0;
+    -moz-border-radius: 0 0 4px 0;
+    border-radius: 0 0 4px 0;
+}
+
 ul.lines li:nth-child(2n+1){
-    background: #ffffe2;
+    background: #f1f1f1;
 }
 
 ul.lines li:nth-child(2n){
-    background: #ebffe2;
+    background: #f9f9f9;
+}
+
+ul.lines li:nth-last-child(1) {
+    border-bottom: 1px solid #ddd;
+}
+
+ul.right li {
+    border-left: none;
+}
+
+div.center td {
+    padding: 0;
 }
 
 div.info {
@@ -79,7 +119,24 @@ span.label-success {
 
 div.topbar {
     width: 900px;
-    margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 20px;
+}
+
+div.process {
+    margin: 12px 10px 0 100px;
+    height: 16px;
+}
+.progress-inversed {
+    border: 1px solid #ddd;
+}
+
+.progress-inversed .bar {
+    background-color: #dd514c;
+    background-image: -moz-linear-gradient(top, #414141, #111111);
+    background-image: -ms-linear-gradient(top, #414141, #111111);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#414141), to(#111111));
+    background-image: -webkit-linear-gradient(top, #414141, #111111);
+    background-image: -o-linear-gradient(top, #414141, #111111);
+    background-image: linear-gradient(top, #414141, #111111);
+    background-repeat: repeat-x;
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#414141', endColorstr='#111111', GradientType=0);
 }
