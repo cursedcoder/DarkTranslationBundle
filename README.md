@@ -83,4 +83,4 @@ And then you are freely to generate html:
 
 * File browser: [1](http://puu.sh/tNYC) [2](http://puu.sh/tNZI)
 * Editor: [fr](http://puu.sh/tO21) [ru](http://puu.sh/tO0n)
-* Docs view: [fr](http://puu.sh/tO1M) [ru](http://puu.sh/tO0U)
+* Docs view: [fr](http://puu.sh/tQgD) [ru](http://puu.sh/tO0U)
