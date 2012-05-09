@@ -28,7 +28,8 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <td width="60%">Name</td>
+                <td width="40%">Name</td>
+                <td width="20%">Status</td>
                 <td width="20%">Last Modified</td>
                 <td>Actions</td>
             </tr>
@@ -48,8 +49,12 @@
                     <i class="icon-file"></i> {{ element.getBasename() }}
                 {% endif %}
 
+            </td>
+            <td>
                 {% if dir.result[element.getBasename()] is not defined %}
                     <span class="label label-inverse">empty</span>
+                {% else %}
+                    <span class="label label-success">exists</span>
                 {% endif %}
             </td>
             <td>{{ element.getMTime()|date("F jS \\a\\t g:ia") }}</td>
