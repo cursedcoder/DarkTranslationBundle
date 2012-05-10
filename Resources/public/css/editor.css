@@ -127,6 +127,9 @@ div.process {
 }
 .progress-inversed {
     border: 1px solid #ddd;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
 }
 
 .progress-inversed .bar {
@@ -139,4 +142,8 @@ div.process {
     background-image: linear-gradient(top, #414141, #111111);
     background-repeat: repeat-x;
     filter: progid:dximagetransform.microsoft.gradient(startColorstr='#414141', endColorstr='#111111', GradientType=0);
+}
+
+ul.breadcrumb {
+    background: #fcfcfc;
 }

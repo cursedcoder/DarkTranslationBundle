@@ -56,26 +56,18 @@
         </div>
     </div>
 
-    <!-- <div class="header">
-        <div class="logo"></div>
-        <div class="menu">
-            <ul>
-                <li><a href="{{ path('list') }}">&laquo; to editor</a></li>
-                <li>official: </li>
-                <li><a href="http://symfony.com">symfony.com</a></li>
-                <li><a href="https://github.com/symfony/symfony-docs">en</a></li>
-                <li>translations: </li>
-                <li><a href="https://github.com/gscorpio/symfony-docs-fr">fr</a></li>
-                <li><a href="https://github.com/garak/symfony-docs-it">it</a></li>
-                <li><a href="https://github.com/symfony-japan/symfony-docs-ja">ja</a></li>
-                <li><a href="https://github.com/ampluso/symfony-docs-pl">pl</a></li>
-                <li><a href="https://github.com/sebio/symfony-docs-ro">ro</a></li>
-                <li><a href="https://github.com/avalanche123/symfony-docs-ru">ru</a></li>
-                <li><a href="https://github.com/gitnacho/symfony-docs-es">es</a></li>
-                <li style="float: right; margin-right: 0; padding-right: 0; padding-left: 20px; background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/pencil.png') no-repeat left;"><a href="{{ path('edit', { 'path': app.request.get('path') ? app.request.get('path') : 'index.rst' }) }}">edit this page</a></li>
-            </ul>
+    <div class="navbar topbar wheelPanel">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li><a href="#"><i class="icon-chevron-up"></i> Top</a></li>
+                        <li><a href="{{ path('edit', { 'path': app.request.get('path') ? app.request.get('path') : 'index.rst' }) }}"><i class="icon-pencil"></i> Edit</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div> /-->
+    </div>
 
     {% block docs %}{% endblock %}
 </div>
@@ -97,6 +89,17 @@
         $('div.sidebar').each(function() {
             body = '<div class="sidebar"></div><div class="admonition admonition-' + name + '">' + $(this).html() + '</div>';
             $(this).removeClass('sidebar').addClass('admonition-wrapper').html(body);
+        });
+
+        $(window).scroll(function() {
+            scrollOffset = $(this).scrollTop();
+            tocOffset = $('div.toc').height() + $('div.toc').offset().top;
+
+            if (scrollOffset > tocOffset) {
+                $('div.wheelPanel').show();
+            } else {
+                $('div.wheelPanel').hide();
+            }
         });
 
     });

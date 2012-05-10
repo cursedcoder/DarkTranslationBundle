@@ -20,3 +20,9 @@ blockquote, .admonition, .toc-content, pre, code, div.highlight, div.highlight-p
     -moz-border-radius: 4px;
     border-radius: 4px;
 }
+
+.wheelPanel {
+    display: none;
+    position: fixed;
+    top: 0;
+}
