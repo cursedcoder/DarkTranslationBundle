@@ -10,13 +10,12 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class ExplorerController extends Controller
 {
     /**
-     * @Route("/")
-     * @Route("/list.html", name="list")
+     * @Route("/", name="explorer")
+     * @Route("/{path}/list.html", name="list", requirements={"path" = ".+"})
      * @Template()
      */
-    public function listDirAction()
+    public function listDirAction($path = null)
     {
-        $path = $this->getRequest()->get('path');
         $explorer = $this->get('dark_translation.explorer');
 
         $data = $explorer->locate($path);
@@ -26,13 +25,11 @@ class ExplorerController extends Controller
     }
 
     /**
-     * @Route("/mkdir.html", name="mkdir")
-     * @Template()
+     * @Route("/{path}/mkdir.html", name="mkdir", requirements={"path" = ".+"})
      */
-    public function mkdirAction()
+    public function mkdirAction($path)
     {
         $request = $this->getRequest();
-        $path = $request->get('path');
 
         $explorer = $this->get('dark_translation.explorer');
         $explorer->createDir($path);

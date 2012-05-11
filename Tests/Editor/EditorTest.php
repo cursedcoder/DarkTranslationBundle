@@ -17,12 +17,8 @@ class EditorTest extends \PHPUnit_Framework_TestCase
 
         $helper = $this->getMockBuilder('Dark\\TranslationBundle\\Utils\\FileHelper')
             ->disableOriginalConstructor()
-            ->setMethods(array('getFile', 'checkPath'))
+            ->setMethods(array('getFile', 'saveFile'))
             ->getMock();
-
-        $helper->expects($this->once())
-            ->method('checkPath')
-            ->will($this->returnValue(true));
 
         $helper->expects($this->at(1))
             ->method('getFile')

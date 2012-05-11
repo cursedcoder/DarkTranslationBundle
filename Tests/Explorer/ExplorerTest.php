@@ -15,6 +15,11 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
         $secondFixture = $this->getMockedFilesArray(5, true);
 
         $helper = $this->getHelperMock();
+
+        $helper->expects($this->exactly(2))
+            ->method('validatePath')
+            ->will($this->returnValue(true));
+
         $explorer = $this->getExplorerMock($helper);
 
         $explorer->expects($this->at(0))
@@ -43,9 +48,8 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
         $path = 'my/mega/super/path';
         $crumbs = $explorer->breadcrumbs($path);
 
-        $this->assertCount(5, $crumbs);
-        $this->assertEquals(array('' => 'Home'), $crumbs[0]);
-        $this->assertEquals(array($path => 'path'), $crumbs[4]);
+        $this->assertCount(4, $crumbs);
+        $this->assertEquals(array($path => 'path'), $crumbs[3]);
     }
 
     /**
@@ -56,10 +60,6 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
         $fixture = 'mega turbo power fixture';
 
         $helper = $this->getHelperMock();
-
-        $helper->expects($this->once())
-            ->method('checkPath')
-            ->will($this->returnValue('path is ok'));
 
         $helper->expects($this->once())
             ->method('getFile')
@@ -84,7 +84,7 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
     {
         return $this->getMockBuilder('Dark\\TranslationBundle\\Utils\\FileHelper')
             ->disableOriginalConstructor()
-            ->setMethods(array('getFile', 'checkPath'))
+            ->setMethods(array('getFile', 'validatePath'))
             ->getMock();
     }
 

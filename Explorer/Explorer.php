@@ -23,8 +23,8 @@ class Explorer
 
     public function locate($path)
     {
-        $sourcePath = $this->helper->checkPath($this->sourcePath . '/' . $path);
-        $resultPath = $this->helper->checkPath($this->resultPath . '/' . $path);
+        $sourcePath = $this->helper->validatePath($this->sourcePath . '/' . $path);
+        $resultPath = $this->helper->validatePath($this->resultPath . '/' . $path);
 
         $source = $this->getFinder($sourcePath);
         $finder = $this->getFinder($resultPath);
@@ -40,7 +40,7 @@ class Explorer
 
     public function breadcrumbs($path)
     {
-        $crumbs = array(array('' => 'Home'));
+        $crumbs = array();
 
         if ('/' === $path) {
             return $crumbs;
@@ -74,8 +74,7 @@ class Explorer
             $path = str_replace('.rst', '.html', $path);
         }
 
-        $path = $this->helper->checkPath($this->buildPath . '/' . $path);
-        $data = $this->helper->getFile($path);
+        $data = $this->helper->getFile($this->buildPath . '/' . $path);
 
         return $data;
     }

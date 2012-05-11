@@ -7,23 +7,21 @@ use Dark\TranslationBundle\Utils\FileHelper;
 class FileHelperTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * ololo
      * @test
      */
     public function shouldGetFile()
     {
-        $helper = new FileHelper();
-        $helper->checkPath(__FILE__);
+        $helper = new FileHelper(__DIR__);
+        $helper->validatePath(__FILE__);
     }
 
     /**
-     * ololo
      * @test
      */
-    public function shouldCheckFile()
+    public function shouldValidateLevel()
     {
-        $helper = new FileHelper();
-        $check = $helper->checkPath(__FILE__);
+        $helper = new FileHelper(__DIR__."/../Utils/");
+        $check = $helper->validatePath(__FILE__);
 
         $this->assertEquals(__FILE__, $check);
     }
@@ -32,19 +30,49 @@ class FileHelperTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException Dark\TranslationBundle\Utils\FileException
      */
-    public function shouldNotGetNotExistFile()
+    public function shouldNotValidateNotExistsLevel()
     {
-        $helper = new FileHelper();
-        $helper->checkPath('/root/not/exist/path/really');
+        $helper = new FileHelper('/root/not/exist/path');
+        $helper->validatePath('/root/not/exist/path/really');
     }
 
     /**
      * @test
      * @expectedException Dark\TranslationBundle\Utils\FileException
      */
-    public function shouldNotCheckNotExistFile()
+    public function shouldNotAccessUpperLevel()
     {
-        $helper = new FileHelper();
+        $helper = new FileHelper(__DIR__."/../Utils/");
+        $helper->validateLevel(__DIR__.'/../bootstrap.php');
+    }
+
+    /**
+     * @test
+     * @expectedException Dark\TranslationBundle\Utils\FileException
+     */
+    public function shouldNotGetNotExistsFile()
+    {
+        $helper = new FileHelper('/root/not/exist/file');
         $helper->getFile('/root/not/exist/file/really.txt');
+    }
+
+    /**
+     * @test
+     * @expectedException Dark\TranslationBundle\Utils\FileException
+     */
+    public function shouldNotGetUpperFile()
+    {
+        $helper = new FileHelper(__DIR__."/../Utils/");
+        $helper->getFile(__DIR__.'/../bootstrap.php', true);
+    }
+
+    /**
+     * @test
+     * @expectedException Dark\TranslationBundle\Utils\FileException
+     */
+    public function shouldNotSaveUpperFile()
+    {
+        $helper = new FileHelper(__DIR__."/../Utils/");
+        $helper->saveFile(__DIR__.'/../../check.txt', '121');
     }
 }

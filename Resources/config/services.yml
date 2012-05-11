@@ -6,6 +6,8 @@ parameters:
 services:
      dark_translation.helper:
         class: %dark_translation.helper.class%
+        arguments:
+            - %dark_translation.source.base_dir%
 
      dark_translation.explorer:
         class: %dark_translation.explorer.class%

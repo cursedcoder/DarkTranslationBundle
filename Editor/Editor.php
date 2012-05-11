@@ -27,8 +27,8 @@ class Editor
         $resultPath = $this->resultPath . '/' . $path;
         $sourcePath = $this->sourcePath . '/' . $path;
 
-        if (!$this->helper->checkPath($resultPath, true)) {
-            file_put_contents($resultPath, null);
+        if (!file_exists($resultPath)) {
+            $this->helper->saveFile($resultPath, null);
         }
 
         $info['source'] = $this->helper->getFile($sourcePath);
@@ -41,6 +41,7 @@ class Editor
     public function save($path, $data)
     {
         $resultPath = $this->resultPath . '/' . $path;
-        file_put_contents($resultPath, $data);
+
+        $this->helper->saveFile($resultPath, $data);
     }
 }
