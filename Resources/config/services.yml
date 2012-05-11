@@ -2,6 +2,7 @@ parameters:
     dark_translation.explorer.class: Dark\TranslationBundle\Explorer\Explorer
     dark_translation.editor.class: Dark\TranslationBundle\Editor\Editor
     dark_translation.helper.class: Dark\TranslationBundle\Utils\FileHelper
+    dark_translation.extension.class: Dark\TranslationBundle\Twig\DocsExtension
 
 services:
      dark_translation.helper:
@@ -23,3 +24,10 @@ services:
             - @dark_translation.helper
             - %dark_translation.source.from%
             - %dark_translation.source.to%
+
+     dark_translation.twig.docs_extension:
+        class: %dark_translation.extension.class%
+        arguments:
+            - %dark_translation.build.path%
+        tags:
+            - { name: twig.extension }

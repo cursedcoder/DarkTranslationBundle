@@ -22,7 +22,7 @@
                     {% endif %}
 
                     <li{% if 'genindex' == pagename %} class="selected"{% endif %}><a href="{{ pathto('genindex') }}">Index</a></li>
-                    
+
                     {% if hasdoc('bundles/index') %}
                     <li{% if 'bundles' in pagename %} class="selected"{% endif %}><a href="{{ pathto('bundles/index') }}">Bundles</a></li>
                     {% endif %}
