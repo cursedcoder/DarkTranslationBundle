@@ -32,7 +32,7 @@ class Explorer
         $result = array();
 
         foreach ($finder as $file) {
-            $result[$file->getBasename()] = true;
+            $result[$file->getBasename()] = $file;
         }
 
         return array('source' => $source, 'result' => $result);

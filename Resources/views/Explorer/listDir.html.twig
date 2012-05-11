@@ -60,7 +60,13 @@
                     <span class="label label-success">exists</span>
                 {% endif %}
             </td>
-            <td>{{ element.getMTime()|date("F jS \\a\\t g:ia") }}</td>
+            <td>
+                {% if dir.result[element.getBasename()] is defined %}
+                    {{ dir.result[element.getBasename()].getMTime()|date("F jS \\a\\t g:ia") }}
+                {% else %}
+                    {{ element.getMTime()|date("F jS \\a\\t g:ia") }}
+                {% endif %}
+            </td>
             <td>
                 {% if element.isFile() %}
                     {% if dir.result[element.getBasename()] is not defined %}
