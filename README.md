@@ -79,8 +79,6 @@ And then you are freely to generate html:
 
     php app/console dark-translation:build-docs
 
-## Screenshots
+## Demo
 
-* File browser: [1](http://puu.sh/tNYC) [2](http://puu.sh/tNZI)
-* Editor: [fr](http://puu.sh/tO21) [ru](http://puu.sh/tO0n)
-* Docs view: [fr](http://puu.sh/tQgD) [ru](http://puu.sh/tO0U)
+You can see real demo [here](http://docs.mitris.net/).
