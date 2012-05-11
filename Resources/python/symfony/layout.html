@@ -4,14 +4,32 @@
             <div class="submenu">
                 <ul class="list_submenu">
                     <li{% if 'index' == pagename %} class="selected"{% endif %}><a href="{{ pathto('index') }}">Documentation</a></li>
+
+                    {% if hasdoc('book/index') %}
                     <li{% if 'book' in pagename and 'cookbook' not in pagename %} class="selected"{% endif %}><a href="{{ pathto('book/index') }}">The Book</a></li>
+                    {% endif %}
+                    {% if hasdoc('cookbook/index') %}
                     <li{% if 'cookbook' in pagename %} class="selected"{% endif %}><a href="{{ pathto('cookbook/index') }}">The Cookbook</a></li>
+                    {% endif %}
+                    {% if hasdoc('components/index') %}
                     <li{% if 'components' in pagename %} class="selected"{% endif %}><a href="{{ pathto('components/index') }}">The Components</a></li>
+                    {% endif %}
+                    {% if hasdoc('reference/index') %}
                     <li{% if 'reference' in pagename %} class="selected"{% endif %}><a href="{{ pathto('reference/index') }}">Reference</a></li>
+                    {% endif %}
+                    {% if hasdoc('glossary') %}
                     <li{% if 'glossary' == pagename %} class="selected"{% endif %}><a href="{{ pathto('glossary') }}">Glossary</a></li>
+                    {% endif %}
+
                     <li{% if 'genindex' == pagename %} class="selected"{% endif %}><a href="{{ pathto('genindex') }}">Index</a></li>
+                    
+                    {% if hasdoc('bundles/index') %}
                     <li{% if 'bundles' in pagename %} class="selected"{% endif %}><a href="{{ pathto('bundles/index') }}">Bundles</a></li>
+                    {% endif %}
+                    {% if hasdoc('contributing/index') %}
                     <li{% if 'contributing' in pagename %} class="selected"{% endif %}><a href="{{ pathto('contributing/index') }}">Contributing</a></li>
+                    {% endif %}
+
                 </ul>
             </div>
 
