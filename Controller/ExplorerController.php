@@ -5,7 +5,6 @@ namespace Dark\TranslationBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ExplorerController extends Controller
 {
@@ -34,9 +33,8 @@ class ExplorerController extends Controller
         $explorer = $this->get('dark_translation.explorer');
         $explorer->createDir($path);
 
-        $referer = $request->headers->get('referer');
         $this->get('session')->setFlash('notice', '<h4>Folder: ' . $path . ' was created</h4>');
 
-        return new RedirectResponse($referer);
+        return $this->redirect($this->generateUrl('list', array('path' => $path)));
     }
 }

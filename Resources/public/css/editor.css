@@ -12,6 +12,10 @@ textarea.window {
     height: 760px;
 }
 
+div.topbar {
+    width: 900px;
+}
+
 div.container {
     margin: 0 auto;
     width: 900px;
@@ -115,10 +119,6 @@ div.buttons {
 
 span.label-success {
     background-color: #69c541;
-}
-
-div.topbar {
-    width: 900px;
 }
 
 div.process {
