@@ -33,6 +33,8 @@ class Editor
 
         $info['source'] = $this->helper->getFile($sourcePath);
         $info['result'] = $this->helper->getFile($resultPath);
+
+        $info['dir'] = str_replace('/' . array_pop((explode('/', $path))), null, $path);
         $info['path'] = $path;
 
         return $info;

@@ -37,11 +37,14 @@ class EditorController extends Controller
 
             $this->get('session')->setFlash('notice', '<h4>File: ' . $path . '</h4> Your changes were saved! ');
 
-            $path = explode('/', $path);
-            array_pop($path);
-            $path = implode('/', $path);
+            $dir = str_replace('/' . array_pop((explode('/', $path))), null, $path);
 
-            return $this->redirect($this->generateUrl('list', array('path' => $path)));
+            $route = $dir
+                ? $this->generateUrl('list', array('path' => $dir))
+                : $this->generateUrl('explorer')
+            ;
+
+            return $this->redirect($route);
         } else {
             throw $this->createNotFoundException('Page is not exist');
         }

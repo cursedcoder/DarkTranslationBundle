@@ -14,7 +14,7 @@
         <li><a href="{{ path('show', { 'path': path }) }}"><i class="icon-eye-open"></i> View html</a></li>
     {% endif %}
     <li><a href="#" class="save"><i class="icon-ok"></i> Save File</a></li>
-    <li><a href="javascript:history.go(-1)"><i class="icon-backward"></i> Back to list</a></li>
+    <li><a href="{{ editor.dir ? path('list', { 'path': editor.dir }) : path('explorer') }}"><i class="icon-backward"></i> Back to list</a></li>
 </ul>
 {% endblock %}
 {% block body %}
