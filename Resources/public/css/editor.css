@@ -33,21 +33,20 @@ div.center {
     width: 70px;
     margin: 0;
     padding: 0;
-    margin-left: 26px;
+    margin-left: 25px;
 }
 
 ul.lines {
-    width: 27px;
     list-style: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     height: 766px;
-    margin-top: 2px;
+    margin-top: 4px;
 }
 
 ul.lines li {
-    width: 25px;
+    width: 26px;
     border: 1px solid #ddd;
     border-bottom: none;
     text-align: center;
@@ -97,8 +96,8 @@ ul.lines li:nth-last-child(1) {
     border-bottom: 1px solid #ddd;
 }
 
-ul.right li {
-    border-left: none;
+ul.left li {
+    border-right: none;
 }
 
 div.center td {
