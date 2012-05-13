@@ -3,7 +3,8 @@ import sys, os
 
 sys.path.append(os.path.abspath('.'))
 
-extensions = ['configurationblock']
+extensions = ['configurationblock', 'sphinxcontrib.phpdomain']
+
 templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
@@ -25,3 +26,13 @@ texinfo_documents = [
    u'ads', 'asd', 'One line description of project.',
    'Miscellaneous'),
 ]
+
+pygments_style = 'native'
+primary_domain = 'php'
+highlight_language = 'php'
+
+from sphinx.highlighting import lexers
+from pygments.lexers.web import PhpLexer
+lexers['php'] = PhpLexer(startinline=True)
+lexers['php-annotations'] = PhpLexer(startinline=True)
+primary_domain = "php"    # It seems to help sphinx in some kind (don't know why)

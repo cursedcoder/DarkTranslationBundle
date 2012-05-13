@@ -73,7 +73,8 @@ And not forget about assets:
 If you want to see how docs is view, you can translate in into html with sphinx.
 Be sure, that you have sphinx on your local machine. If not, run command:
 
-    easy_install -U Sphinx
+    easy_install -U sphinx
+    easy_install -U sphinxcontrib-phpdomain
 
 And then you are freely to generate html:
 
