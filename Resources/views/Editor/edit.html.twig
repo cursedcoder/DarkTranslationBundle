@@ -1,7 +1,7 @@
 {% extends 'DarkTranslationBundle::layout.html.twig' %}
 {% set path = app.request.get('path') %}
 {% block add_menu %}
-<div class="span3 process">
+<div class="process">
     <div class="progress progress-inversed">
         <div class="bar bar-percents" style="width: 0%">
             <i class="info">~<i class="translated">0</i>% translated</i>
@@ -38,8 +38,17 @@
             <textarea wrap="off" class="window second">{{ editor.source }}</textarea>
         </div>
     </form>
-</div>
 
+    <div class="bottom switcher">
+        <ul>
+            <li><a href="#" class="1000">1000px</a></li>
+            <li class="active"><a href="#" class="1300">1300px</a></li>
+            <li><a href="#" class="1500">1500px</a></li>
+            <li><a href="#" class="1800">1800px</a></li>
+        </ul>
+    </div>
+
+</div>
 
 {% endblock %}
 
@@ -68,6 +77,17 @@
 
             $('.first').scrollTop(scrollFirst);
             $('ul.right').scrollTop($(this).scrollTop());
+        });
+
+        $('div.switcher a').live("click", function() {
+            width = $(this).attr('class');
+            $('div.switcher li').removeClass('active');
+            $(this).parent().addClass('active');
+
+            $('div.editor').css('width', width);
+            $('div.topbar').css('width', parseInt(width) + 6);
+            $('div.left, div.right').css('width', ((width - 100) / 2) - 2);
+            $('div.process').css('margin-left', (width - 1000) / 2.5);
         });
 
         calculate = function() {

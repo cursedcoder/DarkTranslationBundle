@@ -104,26 +104,18 @@ div.center td {
     padding: 0;
 }
 
-div.info {
-    margin: 0 auto;
-    width: 1300px;
-    height: 20px;
-}
-
-div.buttons {
-    padding-top: 10px;
-    width: 250px;
-    margin-left: 180px;
-}
-
 span.label-success {
     background-color: #69c541;
 }
 
 div.process {
-    margin: 10px 10px 0 100px;
+    margin-top: 10px;
     height: 16px;
+    text-align: center;
+    display: inline-block;
+    width: 18%;
 }
+
 .progress-inversed {
     border: 1px solid #ddd;
     -webkit-border-radius: 10px;
@@ -145,4 +137,27 @@ div.process {
 
 ul.breadcrumb {
     background: #fcfcfc;
+}
+
+div.bottom ul li {
+    float: right;
+    list-style: none;
+    margin-left: 20px;
+}
+
+div.bottom ul li a {
+    color: #414141;
+    padding: 4px 8px;
+    display: block;
+}
+
+div.bottom ul li a:hover {
+    text-decoration: none;
+}
+
+div.bottom ul li.active a {
+    background: #f0f0f0;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
 }
