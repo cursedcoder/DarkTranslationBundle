@@ -37,7 +37,9 @@ class EditorController extends Controller
 
             $this->get('session')->setFlash('notice', '<h4>File: ' . $path . '</h4> Your changes were saved! ');
 
-            $dir = str_replace('/' . array_pop((explode('/', $path))), null, $path);
+            $dir = explode('/', $path);
+            array_pop($dir);
+            $dir = implode('/', $dir);
 
             $route = $dir
                 ? $this->generateUrl('list', array('path' => $dir))
