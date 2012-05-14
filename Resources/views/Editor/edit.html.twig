@@ -127,6 +127,8 @@
             if (width > 0) {
                 $('div.switcher li').removeClass('active');
                 $('div.switcher a.' + width).parent().addClass('active');
+            } else {
+                width = 1300;
             }
 
             $('div.editor').css('width', width);
