@@ -82,7 +82,7 @@
 
         $('div.switcher a').live("click", function() {
             width = $(this).attr('class');
-            $.cookie('window-width', width);
+            $.cookie('window-width', width, { path: '/' });
 
             resize();
         });
