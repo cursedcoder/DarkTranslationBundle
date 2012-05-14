@@ -31,7 +31,7 @@ class EditorTest extends \PHPUnit_Framework_TestCase
         $editor = new Editor($helper, 'asd', 'asd', 'asd');
         $data = $editor->info($path);
 
-        $this->assertCount(3, $data);
+        $this->assertCount(4, $data);
         $this->assertEquals($data['source'], $firstFixture);
         $this->assertEquals($data['result'], $secondFixture);
         $this->assertEquals($data['path'], $path);
