@@ -53,7 +53,8 @@
 {% endblock %}
 
 {% block js %}
-<script src="{{ asset('/bundles/darktranslation/js/typing.js') }}"></script>
+<script src="{{ asset('/bundles/darktranslation/js/cookie.min.js') }}"></script>
+<script src="{{ asset('/bundles/darktranslation/js/typing.min.js') }}"></script>
 <script type="text/javascript">
     $(function() {
 
@@ -81,13 +82,9 @@
 
         $('div.switcher a').live("click", function() {
             width = $(this).attr('class');
-            $('div.switcher li').removeClass('active');
-            $(this).parent().addClass('active');
+            $.cookie('window-width', width);
 
-            $('div.editor').css('width', width);
-            $('div.topbar').css('width', parseInt(width) + 6);
-            $('div.left, div.right').css('width', ((width - 100) / 2) - 2);
-            $('div.process').css('margin-left', (width - 1000) / 2.5);
+            resize();
         });
 
         calculate = function() {
@@ -124,6 +121,20 @@
             $('.bar-percents').css('width', percent + '%');
         }
 
+        resize = function() {
+            width = $.cookie('window-width');
+
+            if (width > 0) {
+                $('div.switcher li').removeClass('active');
+                $('div.switcher a.' + width).parent().addClass('active');
+            }
+
+            $('div.editor').css('width', width);
+            $('div.topbar').css('width', parseInt(width) + 6);
+            $('div.left, div.right').css('width', ((width - 100) / 2) - 2);
+            $('div.process').css('margin-left', (width - 1000) / 2.5);
+        }
+
         $('textarea').typing({
             start: null,
             stop: function (event, $elem) {
@@ -133,6 +144,7 @@
         });
 
         calculate();
+        resize();
     });
 </script>
 {% endblock %}
