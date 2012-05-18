@@ -44,8 +44,8 @@ class BuildDocsCommand extends ContainerAwareCommand
         shell_exec(sprintf('sphinx-build -b html %s %s', $sourcePath, $buildPath));
 
         shell_exec(sprintf('unlink %s/conf.py', $sourcePath));
-        shell_exec(sprintf('unlink %s/configurationblock.py', $sourcePath));
-        shell_exec(sprintf('unlink %s/configurationblock.pyc', $sourcePath));
+        shell_exec(sprintf('rm -rf %s/sensio', $sourcePath));
+        shell_exec(sprintf('rm -rf %s/symfony', $sourcePath));
 
         $output->writeln('<info>Building is finished.</info>');
     }
