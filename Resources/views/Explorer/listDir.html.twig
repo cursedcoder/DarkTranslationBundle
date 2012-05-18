@@ -1,5 +1,5 @@
 {% extends 'DarkTranslationBundle::layout.html.twig' %}
-{% set path = app.request.get('path') %}
+{% set basePath = app.request.get('path') %}
 {% block body %}
 
 <div class="container">
@@ -37,50 +37,46 @@
             </tr>
         </thead>
         <tbody>
-        {% for element in dir.source %}
-        {% set elPath = path ? path ~ '/' ~ element.getBasename() : element.getBasename() %}
+        {% for file in files %}
+        {% set path = basePath ? basePath ~ '/' ~ file : file %}
         <tr>
             <td>
-                {% if element.isDir() %}
+                {% if file.isDir() %}
                     <i class="icon-folder-open"></i>
-                    {% if dir.result[element.getBasename()] is defined %}
-                        <a href="{{ path('list', { 'path': path ? path ~ '/' ~ element.getBasename() : element.getBasename() }) }}">{{ element.getBasename() }}</a>
+                    {% if file.isTranslated() %}
+                        <a href="{{ path('list', { 'path': path }) }}">{{ file.getName() }}</a>
                     {% else %}
-                        {{ element.getBasename() }}
+                        {{ file.getName() }}
                     {% endif %}
                 {% else %}
-                    <i class="icon-file"></i> {{ element.getBasename() }}
+                    <i class="icon-file"></i> {{ file.getName() }}
                 {% endif %}
 
             </td>
             <td>
-                {% if dir.result[element.getBasename()] is not defined %}
+                {% if not file.isTranslated() %}
                     <span class="label label-inverse">empty</span>
                 {% else %}
                     <span class="label label-success">exists</span>
                 {% endif %}
             </td>
             <td>
-                {% if dir.result[element.getBasename()] is defined %}
-                    {{ dir.result[element.getBasename()].getMTime()|date("F jS \\a\\t g:ia") }}
-                {% else %}
-                    {{ element.getMTime()|date("F jS \\a\\t g:ia") }}
-                {% endif %}
+                {{ file.getCreatedAt()|date("F jS \\a\\t g:ia") }}
             </td>
             <td>
-                {% if element.isFile() %}
-                    {% if dir.result[element.getBasename()] is not defined %}
-                        <i class="icon-wrench"></i> <a href="{{ path('edit', {'path': elPath }) }}">create</a>
+                {% if not file.isDir() %}
+                    {% if not file.isTranslated() %}
+                        <i class="icon-wrench"></i> <a href="{{ path('edit', {'path': path }) }}">create</a>
                     {% else %}
-                        <i class="icon-pencil"></i> <a href="{{ path('edit', {'path': elPath }) }}">edit</a>
+                        <i class="icon-pencil"></i> <a href="{{ path('edit', {'path': path }) }}">edit</a>
                         &nbsp;
-                        {% if isBuilt(elPath) %}
-                            <i class="icon-eye-open"></i> <a href="{{ path('show', { 'path': elPath }) }}">view</a>
+                        {% if isBuilt(path) %}
+                            <i class="icon-eye-open"></i> <a href="{{ path('show', { 'path': path }) }}">view</a>
                         {% endif %}
                     {% endif %}
                 {% else %}
-                    {% if dir.result[element.getBasename()] is not defined %}
-                        <i class="icon-wrench"></i> <a href="{{ path('mkdir', {'path': elPath }) }}">create</a>
+                    {% if not file.isTranslated() %}
+                        <i class="icon-wrench"></i> <a href="{{ path('mkdir', {'path': path }) }}">create</a>
                     {% endif %}
                 {% endif %}
             </td>

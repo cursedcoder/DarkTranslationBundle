@@ -14,15 +14,15 @@
         <li><a href="{{ path('show', { 'path': path }) }}"><i class="icon-eye-open"></i> View html</a></li>
     {% endif %}
     <li><a href="#" class="save"><i class="icon-ok"></i> Save File</a></li>
-    <li><a href="{{ editor.dir ? path('list', { 'path': editor.dir }) : path('explorer') }}"><i class="icon-backward"></i> Back to list</a></li>
+    <li><a href="{{ info.dir ? path('list', { 'path': info.dir }) : path('explorer') }}"><i class="icon-backward"></i> Back to list</a></li>
 </ul>
 {% endblock %}
 {% block body %}
 
-<div class="container editor">
+<div class="container info">
     <form method="POST" action="{{ path('save', { 'path': path }) }}" class="data">
         <div class="left span6">
-            <textarea wrap="off" name="data" class="window first">{{ editor.result }}</textarea>
+            <textarea wrap="off" name="data" class="window first">{{ info.result }}</textarea>
         </div>
 
         <div class="span1 center">
@@ -35,7 +35,7 @@
         </div>
 
         <div class="right span6">
-            <textarea wrap="off" class="window second">{{ editor.source }}</textarea>
+            <textarea wrap="off" class="window second">{{ info.source }}</textarea>
         </div>
     </form>
 
@@ -131,7 +131,7 @@
                 width = 1300;
             }
 
-            $('div.editor').css('width', width);
+            $('div.info').css('width', width);
             $('div.topbar').css('width', parseInt(width) + 6);
             $('div.left, div.right').css('width', ((width - 100) / 2) - 2);
             $('div.process').css('margin-left', (width - 1000) / 2.5);

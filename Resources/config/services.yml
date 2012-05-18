@@ -1,29 +1,12 @@
 parameters:
     dark_translation.explorer.class: Dark\TranslationBundle\Explorer\Explorer
-    dark_translation.editor.class: Dark\TranslationBundle\Editor\Editor
-    dark_translation.helper.class: Dark\TranslationBundle\Utils\FileHelper
     dark_translation.extension.class: Dark\TranslationBundle\Twig\DocsExtension
 
 services:
-     dark_translation.helper:
-        class: %dark_translation.helper.class%
-        arguments:
-            - %dark_translation.source.base_dir%
-
      dark_translation.explorer:
         class: %dark_translation.explorer.class%
         arguments:
-            - @dark_translation.helper
-            - %dark_translation.source.from%
-            - %dark_translation.source.to%
-            - %dark_translation.build.path%
-
-     dark_translation.editor:
-        class: %dark_translation.editor.class%
-        arguments:
-            - @dark_translation.helper
-            - %dark_translation.source.from%
-            - %dark_translation.source.to%
+            - [%dark_translation.source.base_dir%, %dark_translation.source.from%, %dark_translation.source.to%, %dark_translation.build.path%]
 
      dark_translation.twig.docs_extension:
         class: %dark_translation.extension.class%
