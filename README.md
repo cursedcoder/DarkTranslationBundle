@@ -1,8 +1,8 @@
 # DarkTranslationBundle [![Build Status](https://secure.travis-ci.org/cursedcoder/DarkTranslationBundle.png?branch=master)](http://travis-ci.org/cursedcoder/DarkTranslationBundle)
 
-This Symfony2 bundle allow you to easily translate symfony documentation into other languages.
+This Symfony2 bundle allows you to easily translate symfony documentation into other languages.
 
-### What inside?
+### What's inside?
 
 * Combined file manager
 * Fancy double-editor with combined text-scroll
@@ -12,7 +12,7 @@ This Symfony2 bundle allow you to easily translate symfony documentation into ot
 
 ## Installation
 
-Add DarkTranslationBundle in your composer.json
+Add DarkTranslationBundle to your composer.json:
 
 ```js
 {
@@ -22,7 +22,7 @@ Add DarkTranslationBundle in your composer.json
 }
 ```
 
-Register the bundle in your `app/AppKernel.php`:
+Register bundle in your `app/AppKernel.php`:
 
 ```php
 <?php
@@ -43,7 +43,8 @@ dark_translation_bundle:
     resource: "@DarkTranslationBundle/Resources/config/routing.yml"
 ```
 
-Set up url for your fork and local path for docs that you would to translate in ``config.yml``
+Set up url for your fork and local path for docs that you would like to translate in
+``config.yml`` (e.g. for russian language and username `cursedcoder`):
 
 ```jinja
 # app/config.yml
@@ -65,21 +66,21 @@ Then run command:
 
 replace ``ru`` with your lang-tag.
 
-And not forget about assets:
+And do not forget about assets:
 
     php app/console assets:install web/ --symlink
 
-## Build Docs Command
-If you want to see how docs is view, you can translate in into html with sphinx.
-Be sure, that you have sphinx on your local machine. If not, run command:
+## Documentation Building
+Build all the html sources with sphinx in order to see how docs look like.
+Be sure to have sphinx installed on your local machine. If not, run:
 
     easy_install -U sphinx
     easy_install -U sphinxcontrib-phpdomain
 
-And then you are freely to generate html:
+Once done you are on your way to generate the html sources with:
 
     php app/console dark-translation:build-docs
 
 ## Demo
 
-You can see real demo [here](http://docs.mitris.net/).
+You can see a production demo [here](http://docs.mitris.net/).
