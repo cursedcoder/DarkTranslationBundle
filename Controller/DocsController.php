@@ -4,13 +4,13 @@ namespace Dark\TranslationBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * @author Evgeniy Guseletov <d46k16@gmail.com>
+ */
 class DocsController extends Controller
 {
     /**
-     * @Route("/docs/", name="docs")
-     * @Route("/docs/{path}", name="show", requirements={"path" = ".+"})
      * @Template()
      */
     public function showAction($path = 'index.html')

@@ -86,3 +86,12 @@
     </table>
 </div>
 {% endblock %}
+{% block js %}
+<script type="text/javascript">
+$(function() {
+    $(".alert a.close").bind('click', function() {
+       $(this).parent().hide();
+    });
+});
+</script>
+{% endblock %}

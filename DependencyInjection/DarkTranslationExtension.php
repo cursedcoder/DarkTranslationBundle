@@ -7,6 +7,11 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
+/**
+ * Resolves values from config and setups parameters
+ *
+ * @author Evgeniy Guseletov <d46k16@gmail.com>
+ */
 class DarkTranslationExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)

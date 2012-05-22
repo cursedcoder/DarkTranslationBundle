@@ -9,6 +9,11 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Dumper;
 
+/**
+ * This command fetches documentation repos from github
+ *
+ * @author Evgeniy Guseletov <d46k16@gmail.com>
+ */
 class FetchDocsCommand extends ContainerAwareCommand
 {
     protected function configure()
@@ -20,13 +25,19 @@ class FetchDocsCommand extends ContainerAwareCommand
         ;
     }
 
-    /**
-     * @todo need solution for fecthing git
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if (!function_exists('shell_exec')) {
             throw new \Exception('Function "shell_exec" is disabled, cannot work without it.');
+        }
+
+        $check = shell_exec("sphinx-build");
+
+        if (!strstr($check, "Sphinx v1")) {
+            throw new \Exception(
+                'Sphinx not found or installed version is too old.
+                 You can install it running "easy_install -U sphinx sphinxcontrib-phpdomain"'
+            );
         }
 
         $baseDir = $this->getContainer()->getParameter('dark_translation.source.base_dir');

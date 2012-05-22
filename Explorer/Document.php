@@ -2,7 +2,12 @@
 
 namespace Dark\TranslationBundle\Explorer;
 
-class File {
+/**
+ * Documentation file object
+ *
+ * @author Evgeniy Guseletov <d46k16@gmail.com>
+ */
+class Document {
 
     private $name;
     private $createdAt;

@@ -8,6 +8,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * This command builds html documentation using sphinx
+ *
+ * @author Evgeniy Guseletov <d46k16@gmail.com>
+ */
 class BuildDocsCommand extends ContainerAwareCommand
 {
     protected function configure()
@@ -18,9 +23,6 @@ class BuildDocsCommand extends ContainerAwareCommand
         ;
     }
 
-    /**
-     * @todo need some improving, it has heavy depends on shell_exec and *nix systems
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if (!function_exists('shell_exec')) {
@@ -37,15 +39,41 @@ class BuildDocsCommand extends ContainerAwareCommand
             mkdir($buildPath, 0755, true);
         }
 
-        $pyConfig = __DIR__.'/../Resources/python/*';
+        $configPath = __DIR__.'/../Resources/python';
 
-        shell_exec(sprintf('cp -R %s %s', $pyConfig, $sourcePath));
-        shell_exec(sprintf('rm -rf %s', $buildPath));
+        $dirs = array('sensio', 'symfony', 'sensio/sphinx');
+        $files = array(
+            'conf.py', 'sensio/__init__.py', 'sensio/sphinx/__init__.py',
+            'sensio/sphinx/configurationblock.py', 'sensio/sphinx/phpcode.py',
+            'sensio/sphinx/php.py', 'sensio/sphinx/refinclude.py',
+            'symfony/theme.conf', '/symfony/layout.html'
+        );
+
+        foreach ($dirs as $dir) {
+            mkdir($sourcePath . '/' . $dir);
+        }
+        foreach ($files as $file) {
+            copy($configPath . '/' . $file, $sourcePath . '/' . $file);
+        }
+
         shell_exec(sprintf('sphinx-build -b html %s %s', $sourcePath, $buildPath));
 
-        shell_exec(sprintf('unlink %s/conf.py', $sourcePath));
-        shell_exec(sprintf('rm -rf %s/sensio', $sourcePath));
-        shell_exec(sprintf('rm -rf %s/symfony', $sourcePath));
+        $files = array_merge($files, array(
+            'sensio/__init__.pyc',
+            'sensio/sphinx/__init__.pyc',
+            'sensio/sphinx/configurationblock.pyc',
+            'sensio/sphinx/phpcode.pyc',
+            'sensio/sphinx/refinclude.pyc'
+        ));
+
+        $dirs = array_reverse($dirs);
+
+        foreach ($files as $file) {
+            unlink($sourcePath . '/' . $file);
+        }
+        foreach ($dirs as $dir) {
+            rmdir($sourcePath . '/' . $dir);
+        }
 
         $output->writeln('<info>Building is finished.</info>');
     }

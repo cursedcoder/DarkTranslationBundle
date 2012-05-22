@@ -1,7 +1,37 @@
-translation_explorer:
-    resource: "@DarkTranslationBundle/Controller/ExplorerController.php"
-    type:     annotation
+explorer:
+    pattern: /
+    defaults: { _controller: DarkTranslationBundle:Explorer:listDir }
 
-translation_docs:
-    resource: "@DarkTranslationBundle/Controller/DocsController.php"
-    type:     annotation
+docs:
+    pattern: /docs/
+    defaults: { _controller: DarkTranslationBundle:Docs:show }
+
+list:
+    pattern: /{path}/list.html
+    defaults: { _controller: DarkTranslationBundle:Explorer:listDir }
+    requirements:
+        path: ".+"
+
+mkdir:
+    pattern: /{path}/mkdir.html
+    defaults: { _controller: DarkTranslationBundle:Explorer:mkdir }
+    requirements:
+        path: ".+"
+
+edit:
+    pattern: /{path}/edit.html
+    defaults: { _controller: DarkTranslationBundle:Explorer:edit }
+    requirements:
+        path: ".+"
+
+save:
+    pattern: /{path}/save.html
+    defaults: { _controller: DarkTranslationBundle:Explorer:save }
+    requirements:
+        path: ".+"
+
+show:
+    pattern: /docs/{path}
+    defaults: { _controller: DarkTranslationBundle:Docs:show }
+    requirements:
+        path: ".+"

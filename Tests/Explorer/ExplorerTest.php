@@ -4,6 +4,9 @@ namespace Dark\TranslationBundle\Tests\Explorer;
 
 use Dark\TranslationBundle\Explorer\Explorer;
 
+/**
+ * @author Evgeniy Guseletov <d46k16@gmail.com>
+ */
 class ExplorerTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -90,7 +93,7 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldget()
+    public function shouldValidatePath()
     {
         $explorer = $this->getExplorerMock();
         $explorer->validatePath(__FILE__);
@@ -198,5 +201,4 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
 
         return $files;
     }
-
 }

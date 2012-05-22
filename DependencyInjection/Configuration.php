@@ -5,6 +5,9 @@ namespace Dark\TranslationBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+/**
+ * @author Evgeniy Guseletov <d46k16@gmail.com>
+ */
 class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder()

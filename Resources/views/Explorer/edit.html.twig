@@ -56,97 +56,97 @@
 <script src="{{ asset('/bundles/darktranslation/js/cookie.min.js') }}"></script>
 <script src="{{ asset('/bundles/darktranslation/js/typing.min.js') }}"></script>
 <script type="text/javascript">
-    $(function() {
+$(function() {
 
-        $('div.topbar').css('width', '1306px');
+    $('div.topbar').css('width', '1306px');
 
-        $('a.save').bind('click', function() {
-            $('form.data').submit();
-        });
+    $('a.save').bind('click', function() {
+        $('form.data').submit();
+    });
 
-        $('textarea.first').scroll(function() {
-            percent = ($(this).scrollTop() / ($(this)[0].scrollHeight - $(this).height())).toFixed(2);
-            scrollSecond = Math.round(percent * ($('.second')[0].scrollHeight - $('.second').height()));
+    $('textarea.first').scroll(function() {
+        percent = ($(this).scrollTop() / ($(this)[0].scrollHeight - $(this).height())).toFixed(2);
+        scrollSecond = Math.round(percent * ($('.second')[0].scrollHeight - $('.second').height()));
 
-            $('.second').scrollTop(scrollSecond);
-            $('ul.left').scrollTop($(this).scrollTop());
-        });
+        $('.second').scrollTop(scrollSecond);
+        $('ul.left').scrollTop($(this).scrollTop());
+    });
 
-        $('textarea.second').scroll(function() {
-            percent = ($(this).scrollTop() / ($(this)[0].scrollHeight - $(this).height())).toFixed(2);
-            scrollFirst = Math.round(percent * ($('.first')[0].scrollHeight - $('.first').height()));
+    $('textarea.second').scroll(function() {
+        percent = ($(this).scrollTop() / ($(this)[0].scrollHeight - $(this).height())).toFixed(2);
+        scrollFirst = Math.round(percent * ($('.first')[0].scrollHeight - $('.first').height()));
 
-            $('.first').scrollTop(scrollFirst);
-            $('ul.right').scrollTop($(this).scrollTop());
-        });
+        $('.first').scrollTop(scrollFirst);
+        $('ul.right').scrollTop($(this).scrollTop());
+    });
 
-        $('div.switcher a').live("click", function() {
-            width = $(this).attr('class');
-            $.cookie('window-width', width, { path: '/' });
+    $('div.switcher a').live("click", function() {
+        width = $(this).attr('class');
+        $.cookie('window-width', width, { path: '/' });
 
-            resize();
-        });
-
-        calculate = function() {
-
-            $("ul.left").html('');
-            $("ul.right").html('');
-
-            firstCount = $("textarea.first").val().split("\n").length;
-            secondCount = $("textarea.second").val().split("\n").length;
-
-            for (i = 1; i <= firstCount; i++) {
-                $("ul.left").append("<li>" + i + "</li>");
-            }
-
-            for (i = 1; i <= secondCount; i++) {
-                $("ul.right").append("<li>" + i + "</li>");
-            }
-
-            firstLines = $("textarea.first").val().split("\n").length;
-            secondLines = $("textarea.second").val().split("\n").length;
-            percent = (firstLines / secondLines) * 100;
-
-            firstWords = $.trim($('textarea.first').val()).split(' ').length;
-            secondWords = $.trim($('textarea.second').val()).split(' ').length;
-            percent = (firstWords / secondWords) * 100;
-
-            percent = Math.round(((firstLines + firstWords) / (secondLines + secondWords)) * 100);
-
-            if (percent > 100) {
-                percent = 100;
-            }
-
-            $('i.translated').text(percent);
-            $('.bar-percents').css('width', percent + '%');
-        }
-
-        resize = function() {
-            width = $.cookie('window-width');
-
-            if (width > 0) {
-                $('div.switcher li').removeClass('active');
-                $('div.switcher a.' + width).parent().addClass('active');
-            } else {
-                width = 1300;
-            }
-
-            $('div.info').css('width', width);
-            $('div.topbar').css('width', parseInt(width) + 6);
-            $('div.left, div.right').css('width', ((width - 100) / 2) - 2);
-            $('div.process').css('margin-left', (width - 1000) / 2.5);
-        }
-
-        $('textarea').typing({
-            start: null,
-            stop: function (event, $elem) {
-                calculate();
-            },
-            delay: 600
-        });
-
-        calculate();
         resize();
     });
+
+    calculate = function() {
+
+        $("ul.left").html('');
+        $("ul.right").html('');
+
+        firstCount = $("textarea.first").val().split("\n").length;
+        secondCount = $("textarea.second").val().split("\n").length;
+
+        for (i = 1; i <= firstCount; i++) {
+            $("ul.left").append("<li>" + i + "</li>");
+        }
+
+        for (i = 1; i <= secondCount; i++) {
+            $("ul.right").append("<li>" + i + "</li>");
+        }
+
+        firstLines = $("textarea.first").val().split("\n").length;
+        secondLines = $("textarea.second").val().split("\n").length;
+        percent = (firstLines / secondLines) * 100;
+
+        firstWords = $.trim($('textarea.first').val()).split(' ').length;
+        secondWords = $.trim($('textarea.second').val()).split(' ').length;
+        percent = (firstWords / secondWords) * 100;
+
+        percent = Math.round(((firstLines + firstWords) / (secondLines + secondWords)) * 100);
+
+        if (percent > 100) {
+            percent = 100;
+        }
+
+        $('i.translated').text(percent);
+        $('.bar-percents').css('width', percent + '%');
+    }
+
+    resize = function() {
+        width = $.cookie('window-width');
+
+        if (width > 0) {
+            $('div.switcher li').removeClass('active');
+            $('div.switcher a.' + width).parent().addClass('active');
+        } else {
+            width = 1300;
+        }
+
+        $('div.info').css('width', width);
+        $('div.topbar').css('width', parseInt(width) + 6);
+        $('div.left, div.right').css('width', ((width - 100) / 2) - 2);
+        $('div.process').css('margin-left', (width - 1000) / 2.5);
+    }
+
+    $('textarea').typing({
+        start: null,
+        stop: function (event, $elem) {
+            calculate();
+        },
+        delay: 600
+    });
+
+    calculate();
+    resize();
+});
 </script>
 {% endblock %}
