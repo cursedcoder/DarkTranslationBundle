@@ -43,8 +43,7 @@ dark_translation_bundle:
     resource: "@DarkTranslationBundle/Resources/config/routing.yml"
 ```
 
-Set up an url for your fork and local path for docs that you would like to translate in
-``config.yml`` (e.g. for russian language and username `cursedcoder`):
+Set up an url for your fork and local path for docs that you would like to translate in ``config.yml``:
 
 ```jinja
 # app/config.yml
