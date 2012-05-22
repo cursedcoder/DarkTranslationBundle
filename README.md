@@ -2,7 +2,7 @@
 
 This Symfony2 bundle allow you to easily translate symfony documentation into other languages.
 
-### What inside?
+### What's inside?
 
 * Combined file manager
 * Fancy double-editor with combined text-scroll
@@ -43,7 +43,7 @@ dark_translation_bundle:
     resource: "@DarkTranslationBundle/Resources/config/routing.yml"
 ```
 
-Set up url for your fork and local path for docs that you would to translate in ``config.yml``
+Set up an url for your fork and local path for docs to be translated in ``config.yml``
 
 ```jinja
 # app/config.yml
@@ -65,18 +65,18 @@ Then run command:
 
 replace ``ru`` with your lang-tag.
 
-And not forget about assets:
+And don't forget about the assets:
 
     php app/console assets:install web/ --symlink
 
 ## Build Docs Command
-If you want to see how docs is view, you can translate in into html with sphinx.
+You can generate html documentation with sphinx and then to see how is a "real" docs looking.
 Be sure, that you have sphinx on your local machine. If not, run command:
 
     easy_install -U sphinx
     easy_install -U sphinxcontrib-phpdomain
 
-And then you are freely to generate html:
+And then you are ready to generate html:
 
     php app/console dark-translation:build-docs
 

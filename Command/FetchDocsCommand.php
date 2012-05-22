@@ -54,10 +54,10 @@ class FetchDocsCommand extends ContainerAwareCommand
             if (isset($repositories[$lang])) {
                 shell_exec(sprintf('cd %s && git clone %s', $baseDir, $repositories[$lang]));
             } else {
-                throw new \Exception('Not found repository for ' . $lang . ' language.');
+                throw new \Exception('Repository for ' . $lang . ' language not found.');
             }
         }
 
-        $output->writeln('<info>Fetching is finished.</info>');
+        $output->writeln('<info>Fetching has been finished.</info>');
     }
 }

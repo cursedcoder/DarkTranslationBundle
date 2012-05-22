@@ -33,7 +33,7 @@ class BuildDocsCommand extends ContainerAwareCommand
         $buildPath = $this->getContainer()->getParameter('dark_translation.build.path');
 
         if (!file_exists($sourcePath)) {
-            throw new \Exception('Folder ' . $sourcePath . ' is not exist.');
+            throw new \Exception('Folder ' . $sourcePath . ' does not exist.');
         }
         if (!file_exists($buildPath)) {
             mkdir($buildPath, 0755, true);
@@ -75,6 +75,6 @@ class BuildDocsCommand extends ContainerAwareCommand
             rmdir($sourcePath . '/' . $dir);
         }
 
-        $output->writeln('<info>Building is finished.</info>');
+        $output->writeln('<info>Building has been finished.</info>');
     }
 }
