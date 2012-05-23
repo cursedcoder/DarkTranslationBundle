@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Dumper;
+use Symfony\Component\Finder\Finder;
 
 /**
  * This command fetches documentation repos from github
@@ -31,16 +32,8 @@ class FetchDocsCommand extends ContainerAwareCommand
             throw new \Exception('Function "shell_exec" is disabled, cannot work without it.');
         }
 
-        $check = shell_exec("sphinx-build");
-
-        if (!strstr($check, "Sphinx v1")) {
-            throw new \Exception(
-                'Sphinx not found or installed version is too old.
-                 You can install it running "easy_install -U sphinx sphinxcontrib-phpdomain"'
-            );
-        }
-
         $baseDir = $this->getContainer()->getParameter('dark_translation.source.base_dir');
+        $sourceDir = $this->getContainer()->getParameter('dark_translation.source.from');
 
         if (!file_exists($baseDir)) {
             mkdir($baseDir, 0755, true);
@@ -57,6 +50,8 @@ class FetchDocsCommand extends ContainerAwareCommand
                 throw new \Exception('Repository for ' . $lang . ' language not found.');
             }
         }
+
+        $browser = $this->getContainer()->get('dark_translation.browser');
 
         $output->writeln('<info>Fetching has been finished.</info>');
     }

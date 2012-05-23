@@ -15,7 +15,7 @@ class DocsController extends Controller
      */
     public function showAction($path = 'index.html')
     {
-        $data = $this->get('dark_translation.explorer')->show($path);
+        $data = $this->get('dark_translation.browser')->show($path);
 
         return array('data' => $data);
     }

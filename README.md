@@ -8,7 +8,7 @@ This Symfony2 bundle allows you to easily translate symfony documentation into o
 * Fancy double-editor with combined text-scroll
 * Built-in symfony.com theme for docs
 * Commands for generating and fetching docs
-* And much more…
+* File tracking feature
 
 ## Installation
 

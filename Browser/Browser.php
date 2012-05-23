@@ -1,6 +1,6 @@
 <?php
 
-namespace Dark\TranslationBundle\Explorer;
+namespace Dark\TranslationBundle\Browser;
 
 use Symfony\Component\Finder\Finder;
 
@@ -9,12 +9,13 @@ use Symfony\Component\Finder\Finder;
  *
  * @author Evgeniy Guseletov <d46k16@gmail.com>
  */
-class Explorer
+class Browser
 {
     private $baseDir;
     private $sourceDir;
     private $resultDir;
     private $buildDir;
+    private $tracker;
 
     /**
      * Constructor
@@ -30,7 +31,9 @@ class Explorer
           $this->buildDir
         ) = $config;
 
+        $this->sourceDir = $this->processPath($this->sourceDir);
         $this->baseDir = $this->processPath($this->baseDir);
+        $this->tracker = $this->getTracker();
     }
 
     /**
@@ -42,7 +45,7 @@ class Explorer
     public function locate($path)
     {
         $documents = array();
-
+        //$this->dumpChanges($this->sourceDir);
         $sourcePath = $this->validatePath($this->sourceDir . '/' . $path);
         $resultPath = $this->validatePath($this->resultDir . '/' . $path);
 
@@ -57,6 +60,11 @@ class Explorer
             $document->setCreatedAt($info->getMTime());
             $document->setIsDir($info->isDir());
             $document->setIsTranslated($checkTranslation);
+
+            if ($info->isFile()) {
+                $checkChanges = $this->tracker->check($info->getRealPath());
+                $document->setIsChanged($checkChanges);
+            }
 
             $documents[] = $document;
         }
@@ -161,10 +169,13 @@ class Explorer
     public function save($path, $data)
     {
         $resultPath = $this->resultDir . '/' . $path;
+        $sourcePath = $this->sourceDir . '/' . $path;
 
         $this->validateLevel($resultPath);
 
-        return file_put_contents($resultPath, $data);
+        file_put_contents($resultPath, $data);
+
+        $this->tracker->track($sourcePath);
     }
 
     /**
@@ -221,6 +232,41 @@ class Explorer
     }
 
     /**
+     * Dump md5 file structure
+     * @param $path
+     */
+    public function dumpChanges($path)
+    {
+        $changes = implode(PHP_EOL, $this->md5Tree($path));
+
+        file_put_contents($this->baseDir . '/info.dat', $changes);
+
+        $this->info = $this->tracker->update($this->baseDir . '/info.dat');
+    }
+
+    /**
+     * Recursive fetch md5
+     *
+     * @param $path
+     * @param array $hashes
+     * @return array
+     */
+    protected function md5Tree($path, &$hashes = array())
+    {
+        $finder = $this->getFinder($path);
+
+        foreach ($finder as $file) {
+            if ($file->isDir()) {
+                $hashes = $this->md5Tree($file->getRealPath(), $hashes);
+            } else {
+                $hashes[] = $file->getRealPath() . ';' . md5_file($file->getRealPath());
+            }
+        }
+
+        return $hashes;
+    }
+
+    /**
      * This function is same as realpath() but not checks for existing
      *
      * @param $path
@@ -261,5 +307,10 @@ class Explorer
             ->exclude('images')
             ->sortByType()
         ;
+    }
+
+    protected function getTracker()
+    {
+        return new Tracker($this->baseDir, $this->getFinder($this->sourceDir));
     }
 }

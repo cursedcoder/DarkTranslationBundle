@@ -1,13 +1,13 @@
 <?php
 
-namespace Dark\TranslationBundle\Tests\Explorer;
+namespace Dark\TranslationBundle\Tests\Browser;
 
-use Dark\TranslationBundle\Explorer\Explorer;
+use Dark\TranslationBundle\Browser\Browser;
 
 /**
  * @author Evgeniy Guseletov <d46k16@gmail.com>
  */
-class ExplorerTest extends \PHPUnit_Framework_TestCase
+class BrowserTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
@@ -16,17 +16,17 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
     {
         $firstFixture = $this->getMockedFilesArray(10);
 
-        $explorer = $this->getExplorerMock();
+        $browser = $this->getBrowserMock();
 
-        $explorer->expects($this->exactly(2))
+        $browser->expects($this->exactly(2))
             ->method('validatePath')
             ->will($this->returnValue(true));
 
-        $explorer->expects($this->once())
+        $browser->expects($this->once())
             ->method('getFinder')
             ->will($this->returnValue($firstFixture));
 
-        $data = $explorer->locate('bla bla bla');
+        $data = $browser->locate('bla bla bla');
 
         $this->assertCount(10, $data);
     }
@@ -36,10 +36,10 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldCutBreadcrumbs()
     {
-        $explorer = $this->getExplorerMock();
+        $browser = $this->getBrowserMock();
 
         $path = 'my/mega/super/path';
-        $crumbs = $explorer->breadcrumbs($path);
+        $crumbs = $browser->breadcrumbs($path);
 
         $this->assertCount(4, $crumbs);
         $this->assertEquals(array($path => 'path'), $crumbs[3]);
@@ -52,13 +52,13 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
     {
         $fixture = 'mega turbo power fixture';
 
-        $explorer = $this->getExplorerMock();
+        $browser = $this->getBrowserMock();
 
-        $explorer->expects($this->once())
+        $browser->expects($this->once())
             ->method('get')
             ->will($this->returnValue($fixture));
 
-        $data = $explorer->show('sample path');
+        $data = $browser->show('sample path');
 
         $this->assertEquals($fixture, $data);
     }
@@ -72,17 +72,17 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
         $secondFixture = 'secondData';
         $path = 'asd asd';
 
-        $explorer = $this->getExplorerMock();
+        $browser = $this->getBrowserMock();
 
-        $explorer->expects($this->at(1))
+        $browser->expects($this->at(1))
             ->method('get')
             ->will($this->returnValue($firstFixture));
 
-        $explorer->expects($this->at(2))
+        $browser->expects($this->at(2))
             ->method('get')
             ->will($this->returnValue($secondFixture));
 
-        $data = $explorer->info($path);
+        $data = $browser->info($path);
 
         $this->assertCount(4, $data);
         $this->assertEquals($data['source'], $firstFixture);
@@ -95,8 +95,8 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldValidatePath()
     {
-        $explorer = $this->getExplorerMock();
-        $explorer->validatePath(__FILE__);
+        $browser = $this->getBrowserMock();
+        $browser->validatePath(__FILE__);
     }
 
     /**
@@ -106,84 +106,86 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(__DIR__."/../Utils/", '', '', '');
 
-        $explorer = $this->getExplorerMock($config, false);
-        $check = $explorer->validatePath(__FILE__);
+        $browser = $this->getBrowserMock($config, false);
+        $check = $browser->validatePath(__FILE__);
 
         $this->assertEquals(__FILE__, $check);
     }
 
     /**
      * @test
-     * @expectedException Dark\TranslationBundle\Explorer\Exception
+     * @expectedException Dark\TranslationBundle\Browser\Exception
      */
     public function shouldNotValidateNotExistsLevel()
     {
         $config = array('/root/not/exist/path', '', '', '');
 
-        $explorer = $this->getExplorerMock($config, false);
-        $explorer->validatePath('/root/not/exist/path/really');
+        $browser = $this->getBrowserMock($config, false);
+        $browser->validatePath('/root/not/exist/path/really');
     }
 
     /**
      * @test
-     * @expectedException Dark\TranslationBundle\Explorer\Exception
+     * @expectedException Dark\TranslationBundle\Browser\Exception
      */
     public function shouldNotAccessUpperLevel()
     {
         $config = array(__DIR__."/../Utils/", '', '', '');
 
-        $explorer = $this->getExplorerMock($config, false);
-        $explorer->validateLevel(__DIR__.'/../bootstrap.php');
+        $browser = $this->getBrowserMock($config, false);
+        $browser->validateLevel(__DIR__.'/../bootstrap.php');
     }
 
     /**
      * @test
-     * @expectedException Dark\TranslationBundle\Explorer\Exception
+     * @expectedException Dark\TranslationBundle\Browser\Exception
      */
     public function shouldNotGetNotExistsFile()
     {
         $config = array('/root/not/exist/file', '', '', '');
 
-        $explorer = $this->getExplorerMock($config, false);
-        $explorer->get('/root/not/exist/file/really.txt');
+        $browser = $this->getBrowserMock($config, false);
+        $browser->get('/root/not/exist/file/really.txt');
     }
 
     /**
      * @test
-     * @expectedException Dark\TranslationBundle\Explorer\Exception
+     * @expectedException Dark\TranslationBundle\Browser\Exception
      */
     public function shouldNotGetUpperFile()
     {
         $config = array(__DIR__."/../Utils/", '', '', '');
 
-        $explorer = $this->getExplorerMock($config, false);
-        $explorer->get(__DIR__.'/../bootstrap.php', true);
+        $browser = $this->getBrowserMock($config, false);
+        $browser->get(__DIR__.'/../bootstrap.php', true);
     }
 
     /**
      * @test
-     * @expectedException Dark\TranslationBundle\Explorer\Exception
+     * @expectedException Dark\TranslationBundle\Browser\Exception
      */
     public function shouldNotSaveUpperFile()
     {
         $config = array(__DIR__."/../Utils/", '', '', '');
 
-        $explorer = $this->getExplorerMock($config, false);
-        $explorer->save('/../../check.txt', '121');
+        $browser = $this->getBrowserMock($config, false);
+        $browser->save('/../../check.txt', '121');
     }
 
-    protected function getExplorerMock($fixture = null, $fileMethods = true)
+    protected function getBrowserMock($fixture = null, $fileMethods = true)
     {
-        $methods = array('getFinder');
+        $methods = array('getFinder', 'getTracker');
 
         if ($fileMethods) {
             $methods = array_merge($methods, array('get', 'save', 'validatePath'));
         }
 
-        return $this->getMockBuilder('Dark\\TranslationBundle\\Explorer\\Explorer')
+        $browser = $this->getMockBuilder('Dark\\TranslationBundle\\Browser\\Browser')
             ->setMethods($methods)
             ->setConstructorArgs(array($fixture ? $fixture : range(1, 4)))
             ->getMock();
+
+        return $browser;
     }
 
     protected function getMockedFilesArray($count, $flag = false)
@@ -193,7 +195,7 @@ class ExplorerTest extends \PHPUnit_Framework_TestCase
         for ($i = 0; $i < $count; $i++) {
             $file = $this->getMockBuilder('SplFileInfo')
                 ->disableOriginalConstructor()
-                ->setMethods(array('getBasename', 'getMTime', 'getRealPath', 'isDir'))
+                ->setMethods(array('getBasename', 'getMTime', 'getRealPath', 'isDir', 'isFile'))
                 ->getMock();
 
             $files[] = $file;

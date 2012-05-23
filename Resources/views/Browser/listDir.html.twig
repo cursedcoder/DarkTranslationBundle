@@ -14,7 +14,7 @@
     {% endif %}
 
     <ul class="breadcrumb">
-        <li><a href="{{ path('explorer') }}">Home</a></li> <span class="divider">/</span></li>
+        <li><a href="{{ path('browser') }}">Home</a></li> <span class="divider">/</span></li>
 
         {% for crumb in breadcrumbs %}
             {% for path, name in crumb %}
@@ -58,6 +58,9 @@
                     <span class="label label-inverse">empty</span>
                 {% else %}
                     <span class="label label-success">exists</span>
+                    {% if file.isChanged() %}
+                        <span class="label label-warning">changed</span>
+                    {% endif %}
                 {% endif %}
             </td>
             <td>

@@ -162,3 +162,8 @@ div.bottom ul li.active a {
     -moz-border-radius: 10px;
     border-radius: 10px;
 }
+
+.table input[type=checkbox] {
+    margin: 0;
+    padding: 0;
+}

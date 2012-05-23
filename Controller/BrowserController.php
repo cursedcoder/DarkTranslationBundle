@@ -8,17 +8,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @author Evgeniy Guseletov <d46k16@gmail.com>
  */
-class ExplorerController extends Controller
+class BrowserController extends Controller
 {
     /**
      * @Template()
      */
     public function listDirAction($path = null)
     {
-        $explorer = $this->get('dark_translation.explorer');
+        $browser = $this->get('dark_translation.browser');
 
-        $files = $explorer->locate($path);
-        $breadcrumbs = $explorer->breadcrumbs($path);
+        $files = $browser->locate($path);
+        $breadcrumbs = $browser->breadcrumbs($path);
 
         return array('files' => $files, 'breadcrumbs' => $breadcrumbs);
     }
@@ -28,9 +28,9 @@ class ExplorerController extends Controller
      */
     public function editAction($path)
     {
-        $explorer = $this->get('dark_translation.explorer');
+        $browser = $this->get('dark_translation.browser');
 
-        $info = $explorer->info($path);
+        $info = $browser->info($path);
 
         return array('info' => $info);
     }
@@ -43,10 +43,10 @@ class ExplorerController extends Controller
         $request = $this->getRequest();
 
         if ('POST' === $request->getMethod()) {
-            $explorer = $this->get('dark_translation.explorer');
+            $browser = $this->get('dark_translation.browser');
 
             $data = $request->get('data');
-            $explorer->save($path, $data);
+            $browser->save($path, $data);
 
             $this->get('session')->setFlash('notice', '<h4>File: ' . $path . '</h4> Your changes were saved!');
 
@@ -56,7 +56,7 @@ class ExplorerController extends Controller
 
             $route = $dir
                 ? $this->generateUrl('list', array('path' => $dir))
-                : $this->generateUrl('explorer')
+                : $this->generateUrl('browser')
             ;
 
             return $this->redirect($route);
@@ -69,8 +69,8 @@ class ExplorerController extends Controller
     {
         $request = $this->getRequest();
 
-        $explorer = $this->get('dark_translation.explorer');
-        $explorer->createDir($path);
+        $browser = $this->get('dark_translation.browser');
+        $browser->createDir($path);
 
         $this->get('session')->setFlash('notice', '<h4>Folder: ' . $path . ' was created</h4>');
 

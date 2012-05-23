@@ -1,6 +1,6 @@
 <?php
 
-namespace Dark\TranslationBundle\Explorer;
+namespace Dark\TranslationBundle\Browser;
 
 /**
  * Documentation file object
@@ -13,6 +13,7 @@ class Document {
     private $createdAt;
     private $isTranslated = false;
     private $isDir;
+    private $isChanged;
 
     public function __toString()
     {
@@ -57,5 +58,15 @@ class Document {
     public function setIsDir($value)
     {
         $this->isDir = $value;
+    }
+
+    public function isChanged()
+    {
+        return $this->isChanged;
+    }
+
+    public function setIsChanged($value)
+    {
+        $this->isChanged = $value;
     }
 }

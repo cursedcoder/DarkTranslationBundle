@@ -1,6 +1,6 @@
-explorer:
+browser:
     pattern: /
-    defaults: { _controller: DarkTranslationBundle:Explorer:listDir }
+    defaults: { _controller: DarkTranslationBundle:Browser:listDir }
 
 docs:
     pattern: /docs/
@@ -8,25 +8,25 @@ docs:
 
 list:
     pattern: /{path}/list.html
-    defaults: { _controller: DarkTranslationBundle:Explorer:listDir }
+    defaults: { _controller: DarkTranslationBundle:Browser:listDir }
     requirements:
         path: ".+"
 
 mkdir:
     pattern: /{path}/mkdir.html
-    defaults: { _controller: DarkTranslationBundle:Explorer:mkdir }
+    defaults: { _controller: DarkTranslationBundle:Browser:mkdir }
     requirements:
         path: ".+"
 
 edit:
     pattern: /{path}/edit.html
-    defaults: { _controller: DarkTranslationBundle:Explorer:edit }
+    defaults: { _controller: DarkTranslationBundle:Browser:edit }
     requirements:
         path: ".+"
 
 save:
     pattern: /{path}/save.html
-    defaults: { _controller: DarkTranslationBundle:Explorer:save }
+    defaults: { _controller: DarkTranslationBundle:Browser:save }
     requirements:
         path: ".+"
 
