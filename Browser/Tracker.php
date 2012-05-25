@@ -56,7 +56,7 @@ class Tracker
             if (empty($line)) {
                 continue;
             }
-            
+
             list($class, $md5) = explode(';', $line);
             $info[$class] = $md5;
         }

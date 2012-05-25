@@ -52,6 +52,7 @@ class FetchDocsCommand extends ContainerAwareCommand
         }
 
         $browser = $this->getContainer()->get('dark_translation.browser');
+        $browser->dumpChanges($sourceDir);
 
         $output->writeln('<info>Fetching has been finished.</info>');
     }
