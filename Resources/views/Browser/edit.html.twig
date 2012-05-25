@@ -42,11 +42,16 @@
     <div class="bottom switcher">
         <ul>
             <li><a href="#" class="1000">1000px</a></li>
+            <li><a href="#" class="1150">1150px</a></li>
             <li class="active"><a href="#" class="1300">1300px</a></li>
             <li><a href="#" class="1500">1500px</a></li>
             <li><a href="#" class="1800">1800px</a></li>
         </ul>
     </div>
+
+</div>
+
+<div class="box-container">
 
 </div>
 
@@ -58,6 +63,8 @@
 <script type="text/javascript">
 $(function() {
 
+    leftWindowLine = 0;
+
     $('div.topbar').css('width', '1306px');
 
     $('a.save').bind('click', function() {
@@ -65,18 +72,14 @@ $(function() {
     });
 
     $('textarea.first').scroll(function() {
-        percent = ($(this).scrollTop() / ($(this)[0].scrollHeight - $(this).height())).toFixed(2);
-        scrollSecond = Math.round(percent * ($('.second')[0].scrollHeight - $('.second').height()));
+        linesNavigation($(this));
+        scrollSecond = $(this).scrollTop();
 
         $('.second').scrollTop(scrollSecond);
         $('ul.left').scrollTop($(this).scrollTop());
     });
 
     $('textarea.second').scroll(function() {
-        percent = ($(this).scrollTop() / ($(this)[0].scrollHeight - $(this).height())).toFixed(2);
-        scrollFirst = Math.round(percent * ($('.first')[0].scrollHeight - $('.first').height()));
-
-        $('.first').scrollTop(scrollFirst);
         $('ul.right').scrollTop($(this).scrollTop());
     });
 
@@ -119,6 +122,9 @@ $(function() {
 
         $('i.translated').text(percent);
         $('.bar-percents').css('width', percent + '%');
+
+        $('ul.left').scrollTop($('textarea.first').scrollTop());
+        $('ul.right').scrollTop($('textarea.second').scrollTop());
     }
 
     resize = function() {
@@ -135,6 +141,8 @@ $(function() {
         $('div.topbar').css('width', parseInt(width) + 6);
         $('div.left, div.right').css('width', ((width - 100) / 2) - 2);
         $('div.process').css('margin-left', (width - 1000) / 2.5);
+
+        translationBox(leftWindowLine, 5);
     }
 
     $('textarea').typing({
@@ -142,8 +150,95 @@ $(function() {
         stop: function (event, $elem) {
             calculate();
         },
-        delay: 600
+        delay: 1
     });
+
+    $('textarea.first').bind('click', function(){
+        linesNavigation($(this));
+    });
+
+    $('textarea.first').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        switch(code) {
+            case 13: case 40:
+                if (leftWindowLine == $(this).val().split("\n").length) return;
+                leftWindowLine++;
+                translationBox(leftWindowLine, 5);
+                break;
+            case 38:
+                if (leftWindowLine == 1) break;
+                leftWindowLine--;
+                translationBox(leftWindowLine, 5);
+                break;
+        }
+    });
+
+    linesNavigation = function(object) {
+        var currentChar = object[0].selectionEnd;
+        var all = object[0].textLength;
+        var currentLine = 0;
+
+        for (i = 0; i <= all; i++) {
+            var char = object.text()[i];
+
+            if (char == "\n") {
+                currentLine++;
+            }
+            if (i >= currentChar && char == "\n") {
+                leftWindowLine = currentLine;
+                translationBox(currentLine, 5);
+                break;
+            }
+        }
+    }
+
+    translationBox = function(lineNum, linesCount) {
+        if(leftWindowLine == 0) return;
+
+        var target = $('textarea.first');
+        var text = $('textarea.second').val();
+        var currentLine = 1;
+        var linesLimit = lineNum + linesCount;
+
+        var textBox = $("<div class='translationBox'></div>");
+
+        for (i = 1; i < text.length; i++) {
+            var char = text[i];
+
+            if (char == "\n") {
+                currentLine++;
+
+                if (currentLine == lineNum) {
+                    continue;
+                }
+            }
+            if (currentLine >= lineNum && currentLine <= linesLimit) {
+                if (char == ' ') {
+                    textBox.append('&nbsp;');
+                    continue;
+                }
+                if (char == "\n") {
+                    textBox.append('<br />');
+                    continue;
+                }
+
+                textBox.append(char);
+            }
+        }
+
+        if(target[0].scrollHeight > target.height()) {
+            widthController = 16;
+        } else {
+            widthController = 0;
+        }
+
+        $('div.box-container').html(textBox.html()).css({
+            'top': target.offset().top + (16 * lineNum) + 5 - target.scrollTop(),
+            'left': target.offset().left + 1,
+            'width': target.width() - widthController
+        });
+    }
+
 
     calculate();
     resize();

@@ -9,6 +9,7 @@ This Symfony2 bundle allows you to easily translate symfony documentation into o
 * Built-in symfony.com theme for docs
 * Commands for generating and fetching docs
 * File tracking feature
+* Visual translation widget
 
 ## Installation
 

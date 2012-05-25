@@ -45,7 +45,7 @@ class Browser
     public function locate($path)
     {
         $documents = array();
-        //$this->dumpChanges($this->sourceDir);
+
         $sourcePath = $this->validatePath($this->sourceDir . '/' . $path);
         $resultPath = $this->validatePath($this->resultDir . '/' . $path);
 

@@ -9,7 +9,8 @@ a {
 textarea.window {
     display: block;
     width: 100%;
-    height: 760px;
+    height: 650px;
+    line-height: 16px;
 }
 
 div.topbar {
@@ -41,7 +42,7 @@ ul.lines {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    height: 766px;
+    height: 656px;
     margin-top: 4px;
 }
 
@@ -166,4 +167,12 @@ div.bottom ul li.active a {
 .table input[type=checkbox] {
     margin: 0;
     padding: 0;
+}
+
+div.box-container {
+    position: absolute;
+    background: #eee;
+    padding: 0 4px;
+    line-height: 16px;
+    white-space: normal;
 }

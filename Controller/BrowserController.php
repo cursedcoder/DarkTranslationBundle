@@ -18,6 +18,7 @@ class BrowserController extends Controller
         $browser = $this->get('dark_translation.browser');
 
         $files = $browser->locate($path);
+
         $breadcrumbs = $browser->breadcrumbs($path);
 
         return array('files' => $files, 'breadcrumbs' => $breadcrumbs);
@@ -46,6 +47,7 @@ class BrowserController extends Controller
             $browser = $this->get('dark_translation.browser');
 
             $data = $request->get('data');
+
             $browser->save($path, $data);
 
             $this->get('session')->setFlash('notice', '<h4>File: ' . $path . '</h4> Your changes were saved!');
@@ -70,6 +72,7 @@ class BrowserController extends Controller
         $request = $this->getRequest();
 
         $browser = $this->get('dark_translation.browser');
+
         $browser->createDir($path);
 
         $this->get('session')->setFlash('notice', '<h4>Folder: ' . $path . ' was created</h4>');
