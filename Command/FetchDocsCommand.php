@@ -21,8 +21,8 @@ class FetchDocsCommand extends ContainerAwareCommand
     {
         $this
             ->setName('dark-translation:fetch-docs')
-            ->setDescription('Fetch docs from github.com, available: en, fr, it, ja, pl, ro, ru, es')
-            ->addArgument('language', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'available: en, fr, it, ja, pl, ro, ru, es')
+            ->setDescription('Fetch docs from github.com, available: en, fr, it, ja, pl, ro, ru, es, tr')
+            ->addArgument('language', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'available: en, fr, it, ja, pl, ro, ru, es, tr')
         ;
     }
 
