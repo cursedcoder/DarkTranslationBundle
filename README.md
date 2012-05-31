@@ -60,6 +60,8 @@ dark_translation:
         path: %kernel.root_dir%/../docs/build
 ```
 
+You need to create an empty file named ``info.dat`` to your ``base_dir`` folder. This file will be used for tracking changes in your translations.
+
 Then run command:
 
     php app/console dark-translation:fetch-docs en ru
