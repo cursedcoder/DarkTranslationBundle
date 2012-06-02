@@ -40,7 +40,11 @@
     </form>
 
     <div class="bottom switcher">
-        <ul>
+        <ul class="left-side">
+            <li class="active"><a href="#" class="auto-scroll">auto-scroll</a></li>
+            <li class="active"><a href="#" class="trns-widget">translation widget</a></li>
+        </ul>
+        <ul class="right-side">
             <li><a href="#" class="1000">1000px</a></li>
             <li><a href="#" class="1150">1150px</a></li>
             <li class="active"><a href="#" class="1300">1300px</a></li>
@@ -51,9 +55,7 @@
 
 </div>
 
-<div class="box-container">
-
-</div>
+<div class="box-container"></div>
 
 {% endblock %}
 
@@ -63,9 +65,20 @@
 <script type="text/javascript">
 $(function() {
 
-    leftWindowLine = 0;
+    var leftWindowLine = 0;
+    var isAutoScroll = 1;
 
     $('div.topbar').css('width', '1306px');
+
+    $('.switcher .trns-widget').bind('click', function(){
+        $('.box-container').toggle();
+        $(this).parent().toggleClass('active');
+    });
+
+    $('.switcher .auto-scroll').bind('click', function(){
+        isAutoScroll = isAutoScroll ? false : true;
+        $(this).parent().toggleClass('active');
+    });
 
     $('a.save').bind('click', function() {
         $('form.data').submit();
@@ -73,42 +86,40 @@ $(function() {
 
     $('textarea.first').scroll(function() {
         linesNavigation($(this));
-        scrollSecond = $(this).scrollTop();
-
-        $('.second').scrollTop(scrollSecond);
         $('ul.left').scrollTop($(this).scrollTop());
+
+        if (!isAutoScroll) return;
+
+        scrollSecond = $(this).scrollTop();
+        $('.second').scrollTop(scrollSecond);
     });
 
     $('textarea.second').scroll(function() {
         $('ul.right').scrollTop($(this).scrollTop());
     });
 
-    $('div.switcher a').live("click", function() {
+    $('div.switcher .right-side a').live("click", function() {
         width = $(this).attr('class');
         $.cookie('window-width', width, { path: '/' });
 
-        resize();
+        resizeContainer();
     });
 
-    calculate = function() {
-
+    updateContents = function() {
         $("ul.left").html('');
         $("ul.right").html('');
-
-        firstCount = $("textarea.first").val().split("\n").length;
-        secondCount = $("textarea.second").val().split("\n").length;
-
-        for (i = 1; i <= firstCount; i++) {
-            $("ul.left").append("<li>" + i + "</li>");
-        }
-
-        for (i = 1; i <= secondCount; i++) {
-            $("ul.right").append("<li>" + i + "</li>");
-        }
 
         firstLines = $("textarea.first").val().split("\n").length;
         secondLines = $("textarea.second").val().split("\n").length;
         percent = (firstLines / secondLines) * 100;
+
+        for (i = 1; i <= firstLines; i++) {
+            $("ul.left").append("<li>" + i + "</li>");
+        }
+
+        for (i = 1; i <= secondLines; i++) {
+            $("ul.right").append("<li>" + i + "</li>");
+        }
 
         firstWords = $.trim($('textarea.first').val()).split(' ').length;
         secondWords = $.trim($('textarea.second').val()).split(' ').length;
@@ -127,12 +138,12 @@ $(function() {
         $('ul.right').scrollTop($('textarea.second').scrollTop());
     }
 
-    resize = function() {
+    resizeContainer = function() {
         width = $.cookie('window-width');
 
         if (width > 0) {
-            $('div.switcher li').removeClass('active');
-            $('div.switcher a.' + width).parent().addClass('active');
+            $('div.switcher .right-side li').removeClass('active');
+            $('div.switcher .right-side a.' + width).parent().addClass('active');
         } else {
             width = 1300;
         }
@@ -148,7 +159,7 @@ $(function() {
     $('textarea').typing({
         start: null,
         stop: function (event, $elem) {
-            calculate();
+            updateContents();
         },
         delay: 1
     });
@@ -161,7 +172,8 @@ $(function() {
         var code = (e.keyCode ? e.keyCode : e.which);
         switch(code) {
             case 13: case 40:
-                if (leftWindowLine == $(this).val().split("\n").length) return;
+                linesCount = $(this).val().split("\n").length;
+                if (leftWindowLine == linesCount) return;
                 leftWindowLine++;
                 translationBox(leftWindowLine, 5);
                 break;
@@ -227,21 +239,38 @@ $(function() {
         }
 
         if(target[0].scrollHeight > target.height()) {
-            widthController = 16;
+            widthController = 18;
         } else {
             widthController = 0;
         }
 
         $('div.box-container').html(textBox.html()).css({
-            'top': target.offset().top + (16 * lineNum) + 5 - target.scrollTop(),
+            'top': target.offset().top + (18 * lineNum) + 5 - target.scrollTop(),
             'left': target.offset().left + 1,
             'width': target.width() - widthController
         });
+
+        boxOffset = $('div.box-container').offset().top + $('div.box-container').height();
+        windowOffset = target.offset().top + target.height() + 8;
+
+        if (boxOffset >= windowOffset) {
+            heightController = $('div.box-container').height() - (boxOffset - windowOffset);
+        } else {
+            heightController = windowOffset - boxOffset + $('div.box-container').height();
+            if (heightController > (18 * linesCount)) {
+                heightController = 18 * linesCount;
+            }
+        }
+        if (heightController < 0 || $('div.box-container').offset().top < target.offset().top) {
+            heightController = 0;
+        }
+
+        $('div.box-container').css('height', heightController);
     }
 
 
-    calculate();
-    resize();
+    updateContents();
+    resizeContainer();
 });
 </script>
 {% endblock %}
