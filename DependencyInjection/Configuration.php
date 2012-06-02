@@ -38,6 +38,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('ro')->defaultValue('https://github.com/sebio/symfony-docs-ro')->end()
                         ->scalarNode('ru')->defaultValue('https://github.com/avalanche123/symfony-docs-ru')->end()
                         ->scalarNode('es')->defaultValue('https://github.com/gitnacho/symfony-docs-es')->end()
+                        ->scalarNode('tr')->defaultValue('https://github.com/symfony-tr/symfony-docs-tr')->end()
                     ->end()
                 ->end()
             ->end()

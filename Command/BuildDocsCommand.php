@@ -50,7 +50,9 @@ class BuildDocsCommand extends ContainerAwareCommand
         );
 
         foreach ($dirs as $dir) {
-            mkdir($sourcePath . '/' . $dir);
+            if (!file_exists($sourcePath . '/' . $dir)) {
+                mkdir($sourcePath . '/' . $dir);
+            }
         }
         foreach ($files as $file) {
             copy($configPath . '/' . $file, $sourcePath . '/' . $file);
