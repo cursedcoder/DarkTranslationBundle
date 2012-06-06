@@ -41,41 +41,7 @@ class BuildDocsCommand extends ContainerAwareCommand
 
         $configPath = __DIR__.'/../Resources/python';
 
-        $dirs = array('sensio', 'symfony', 'sensio/sphinx');
-        $files = array(
-            'conf.py', 'sensio/__init__.py', 'sensio/sphinx/__init__.py',
-            'sensio/sphinx/configurationblock.py', 'sensio/sphinx/phpcode.py',
-            'sensio/sphinx/php.py', 'sensio/sphinx/refinclude.py',
-            'symfony/theme.conf', '/symfony/layout.html'
-        );
-
-        foreach ($dirs as $dir) {
-            if (!file_exists($sourcePath . '/' . $dir)) {
-                mkdir($sourcePath . '/' . $dir);
-            }
-        }
-        foreach ($files as $file) {
-            copy($configPath . '/' . $file, $sourcePath . '/' . $file);
-        }
-
-        shell_exec(sprintf('sphinx-build -b html %s %s', $sourcePath, $buildPath));
-
-        $files = array_merge($files, array(
-            'sensio/__init__.pyc',
-            'sensio/sphinx/__init__.pyc',
-            'sensio/sphinx/configurationblock.pyc',
-            'sensio/sphinx/phpcode.pyc',
-            'sensio/sphinx/refinclude.pyc'
-        ));
-
-        $dirs = array_reverse($dirs);
-
-        foreach ($files as $file) {
-            unlink($sourcePath . '/' . $file);
-        }
-        foreach ($dirs as $dir) {
-            rmdir($sourcePath . '/' . $dir);
-        }
+        shell_exec(sprintf('sphinx-build -c %s -b html %s %s', $configPath, $sourcePath, $buildPath));
 
         $output->writeln('<info>Building has been finished.</info>');
     }
